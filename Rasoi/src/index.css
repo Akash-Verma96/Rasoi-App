@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  @apply min-h-screen bg-linear-to-br from-black via-zinc-900/90 to-black text-white;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f3f3f3 25%,
+    #e0e0e0 37%,
+    #f3f3f3 63%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
