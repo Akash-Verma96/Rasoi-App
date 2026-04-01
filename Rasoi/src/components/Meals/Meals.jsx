@@ -38,7 +38,7 @@ function Meals() {
         Meals 🔥
       </h2>
 
-      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6">
+      <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6">
         {meals.map((meal) => (
           <div
             key={meal._id}
