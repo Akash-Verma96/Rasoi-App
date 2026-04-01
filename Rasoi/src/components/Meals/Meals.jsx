@@ -76,7 +76,7 @@ function Meals() {
                   to={`mealDetail/${meal._id}`}
                   className="bg-orange-500 hover:bg-orange-600 text-white text-sm px-3 py-1 rounded-lg transition duration-300"
                 >
-                  Order Now
+                  Order
                 </Link>
               </div>
             </div>

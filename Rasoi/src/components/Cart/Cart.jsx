@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BASE_URL, cartAddedMeal } from "../../utils/constant";
+import { BASE_URL } from "../../utils/constant";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import {useDispatch } from "react-redux";

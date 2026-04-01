@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "../../utils/constant";
-import { cartAddedMeal } from "../../utils/constant";
 import { XCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
