@@ -12,7 +12,7 @@ import orderRouter from "./routes/orderRouter.js";
 const app = express();
 
 app.use(cors({
-  origin:"https://rasoi-app-frontend.onrender.com/cart",
+  origin:"https://rasoi-app-frontend.onrender.com",
   credentials:true
 }))
 
