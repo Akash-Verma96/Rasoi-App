@@ -13,11 +13,12 @@ const app = express();
 
 app.use(
   cors({
-    origin:
-      "http://localhost:5173" || "https://rasoi-app-frontend.onrender.com",
-
+    origin: [
+      "http://localhost:5173",
+      "https://rasoi-app-frontend.onrender.com",
+    ],
     credentials: true,
-  }),
+  })
 );
 
 dotenv.config(); // used to take variable value from .env file middleware
