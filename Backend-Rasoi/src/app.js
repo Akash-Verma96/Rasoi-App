@@ -15,7 +15,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://rasoi-app-frontend.onrender.com",
+      "https://rasoi-app-1.onrender.com",
     ],
     credentials: true,
   })
