@@ -15,6 +15,7 @@ function Meals() {
   const fetchMeals = async () => {
     try {
       const res = await axios.get(BASE_URL, { withCredentials: true });
+      console.log(res.data);
       setMeals(res.data);
     } catch (error) {
       console.log(error);
@@ -47,7 +48,6 @@ function Meals() {
             {/* Image */}
             <img
               src={`${BASE_URL}/${meal.image}`}
-              // src={meal.image}
               alt={meal.name}
               className="w-full object-cover transition-transform duration-500 group-hover:scale-110"
             />

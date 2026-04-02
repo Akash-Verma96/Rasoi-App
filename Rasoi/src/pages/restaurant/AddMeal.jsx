@@ -41,6 +41,8 @@ function AddMeal() {
       const res = await axios.post(BASE_URL + "/restaurant/addMeal",
         formData
       ,{withCredentials: true})
+
+      alert("Meal added Successfully !");
     } catch (error) {
       console.log(error)
     }
