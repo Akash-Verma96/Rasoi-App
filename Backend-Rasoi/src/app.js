@@ -8,6 +8,7 @@ import profileRouter from "./routes/profileRouter.js";
 import addMealRouter from "./routes/addMealRouter.js";
 import restaurantRouter from "./routes/restaurantRouter.js";
 import orderRouter from "./routes/orderRouter.js";
+import connectCloudinary from "./config/cloudinary.js";
 
 const app = express();
 
@@ -22,9 +23,12 @@ app.use(
 );
 
 dotenv.config(); // used to take variable value from .env file middleware
+
+
 app.use(express.json()); // To read json data sent by client middleware
 app.use(cookie_Parser()); // --> used to get token from client side generaly client use res.cookie.token to get token
 app.use("/uploads", express.static("uploads"));
+connectCloudinary();
 
 app.use("/", authRouter);
 app.use("/", profileRouter);

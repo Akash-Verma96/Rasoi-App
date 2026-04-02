@@ -47,7 +47,7 @@ function Meals() {
           >
             {/* Image */}
             <img
-              src={`${BASE_URL}/${meal.image}`}
+              src={meal.image}
               alt={meal.name}
               className="w-full object-cover transition-transform duration-500 group-hover:scale-110"
             />

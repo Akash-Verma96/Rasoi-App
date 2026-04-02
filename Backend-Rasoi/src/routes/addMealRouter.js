@@ -11,15 +11,15 @@ import Restaurant from "../models/restaurant.js";
 const addMealRouter = express.Router();
 
 addMealRouter.post(
-  "/restaurant/addMeal",
-  upload.single("image"),userAuth,
+  "/restaurant/addMeal",userAuth,
+  upload.single("image"),
   async (req, res) => {
     try {
       const { name, price, category, description } = req.body;
       const {userId} = req.user._id;
 
       if (!req.file) {
-        res.status(400).send("Image file required !");
+        return res.status(400).send("Image file required !");
       }
 
       const rest = await Restaurant.findOne({userId});
