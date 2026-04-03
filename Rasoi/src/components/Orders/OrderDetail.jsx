@@ -59,7 +59,7 @@ function OrderDetail() {
         <div className="bg-white rounded-2xl shadow-md p-6 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
           <div>
             <h2 className="text-xl font-semibold text-gray-800">
-              Order {order.id}
+              Order {order._id}
             </h2>
             <p className="text-gray-500 text-sm">From {order.restaurant}</p>
           </div>

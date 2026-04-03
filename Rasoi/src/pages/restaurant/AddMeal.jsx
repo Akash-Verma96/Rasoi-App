@@ -21,13 +21,15 @@ function AddMeal() {
   };
 
   const handleFileChange = (e) => {
-    setImage(e.target.files[0])
     const file = e.target.files[0];
+    if(!file) return ;
+    setImage(e.target.files[0])
     setFile(true)
     setFileName(file.name)
   };
 
-  const handleAddMeal = async () => {
+  const handleAddMeal = async (e) => {
+    e.preventDefault();
     try {
 
       const formData = new FormData();
@@ -38,13 +40,20 @@ function AddMeal() {
       formData.append("description",description);
       formData.append("image",image);
 
-      const res = await axios.post(BASE_URL + "/restaurant/addMeal",
-        formData
-      ,{withCredentials: true})
 
+      console.log("IMAGE:", image);
+    const res = await axios.post(
+  BASE_URL + "/restaurant/addMeal",
+  formData,
+  {
+    withCredentials: true,
+  }
+);
+
+      console.log(res.data);
       alert("Meal added Successfully !");
     } catch (error) {
-      console.log(error)
+      console.log(error.response?.data)
     }
   }
 

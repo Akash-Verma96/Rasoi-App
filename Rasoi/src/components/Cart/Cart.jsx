@@ -114,7 +114,7 @@ function Cart() {
                   {/* Image */}
                   <div className="w-full h-28 sm:h-32 md:h-36 overflow-hidden">
                     <img
-                      src={`${BASE_URL}/${meal.meal.image}`}
+                      src={meal.meal.image}
                       alt={meal.meal.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                     />

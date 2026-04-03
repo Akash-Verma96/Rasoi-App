@@ -1,6 +1,5 @@
 // Isme cart router hai
 
-
 import express from "express";
 import upload from "../middlewares/multer.js";
 import Meal from "../models/meal.js";
@@ -10,23 +9,24 @@ import Restaurant from "../models/restaurant.js";
 
 const addMealRouter = express.Router();
 
-addMealRouter.post(
-  "/restaurant/addMeal",userAuth,
-  upload.single("image"),
-  async (req, res) => {
+addMealRouter.post("/restaurant/addMeal",userAuth,upload.single("image"),async (req, res) => {
     try {
+      const userId = req.user._id;
       const { name, price, category, description } = req.body;
-      const {userId} = req.user._id;
+      
 
       if (!req.file) {
         return res.status(400).send("Image file required !");
       }
 
-      const rest = await Restaurant.findOne({userId});
-      
+      const rest = await Restaurant.findOne({ owner:userId });
+
+      if (!rest) {
+        return res.status(404).json({ message: "Restaurant not found" });
+      }
+
       const restaurantId = rest._id;
 
-      
       const meal = new Meal({
         restaurant: restaurantId,
         name,
@@ -43,7 +43,6 @@ addMealRouter.post(
         meal,
       });
     } catch (err) {
-      
       res.status(500).send(err.message);
     }
   },
@@ -55,13 +54,12 @@ addMealRouter.post("/mealDetail/:mealId", userAuth, async (req, res) => {
     const { quantity } = req.body;
     const { mealId } = req.params;
 
-
     let cart = await Cart.findOne({ userId });
 
     if (!cart) {
       cart = new Cart({
         userId,
-        items: [{ meal: mealId, quantity: quantity}],
+        items: [{ meal: mealId, quantity: quantity }],
       });
     } else {
       const itemIndex = cart.items.findIndex(
@@ -75,7 +73,7 @@ addMealRouter.post("/mealDetail/:mealId", userAuth, async (req, res) => {
       }
     }
 
-    await cart.save()
+    await cart.save();
 
     res.json({
       message: "Meal Added to cart Successfully !",
@@ -86,54 +84,52 @@ addMealRouter.post("/mealDetail/:mealId", userAuth, async (req, res) => {
   }
 });
 
-addMealRouter.delete("/cart/:mealId",userAuth, async(req,res)=>{
+addMealRouter.delete("/cart/:mealId", userAuth, async (req, res) => {
   try {
-    const userId = req.user._id
-    const mealId = req.params.mealId
+    const userId = req.user._id;
+    const mealId = req.params.mealId;
     const cart = await Cart.findOneAndUpdate(
-      {userId},
+      { userId },
       {
-        $pull:{
-          items:{meal:mealId}
-        }
+        $pull: {
+          items: { meal: mealId },
+        },
       },
-      {new:true}
-    )
+      { new: true },
+    );
 
     await cart.save();
     res.json({
-      messgae:"Meal cleared successfully !",
-      data: cart
-    })
-    
+      messgae: "Meal cleared successfully !",
+      data: cart,
+    });
   } catch (error) {
-    res.status(500).send(error.message)
+    res.status(500).send(error.message);
   }
-})
+});
 
-addMealRouter.patch("/cart/:mealId",userAuth, async(req,res)=>{
+addMealRouter.patch("/cart/:mealId", userAuth, async (req, res) => {
   try {
-    const userId = req.user._id
-    const mealId = req.params.mealId
+    const userId = req.user._id;
+    const mealId = req.params.mealId;
     const cart = await Cart.findOneAndUpdate(
-      {userId},
+      { userId },
       {
-        $pull:{
-          items:{meal:mealId}
-        }
+        $pull: {
+          items: { meal: mealId },
+        },
       },
-      {new:true}
-    )
+      { new: true },
+    );
 
     await cart.save();
     res.json({
-      messgae:"Meal cleared successfully !",
-      data: cart
-    })
-    
+      messgae: "Meal cleared successfully !",
+      data: cart,
+    });
   } catch (error) {
-    res.status(500).send(error.message)
+    res.status(500).send(error.message);
   }
-})
+});
 
 export default addMealRouter;

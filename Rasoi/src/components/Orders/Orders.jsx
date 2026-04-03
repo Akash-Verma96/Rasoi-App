@@ -83,10 +83,10 @@ export default function Orders() {
                 key={order._id}
                 className="bg-white rounded-2xl shadow-sm hover:shadow-md transition p-4 flex items-center justify-between cursor-pointer"
               >
-                {/* LEFT */}
+                {/* LEFT */}r
                 <div className="flex items-center gap-4">
                   <img
-                    src={`${BASE_URL}/${order.image}`}
+                    src={order.image}
                     alt={order.name}
                     className="w-16 h-16 rounded-lg object-cover"
                   />

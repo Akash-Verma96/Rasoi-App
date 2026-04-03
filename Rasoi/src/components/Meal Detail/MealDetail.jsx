@@ -59,7 +59,7 @@ const MealDetail = () => {
         {/* Image Section */}
         <div className="w-full md:w-1/2">
           <img
-            src={`${BASE_URL}/${meal.image}`}
+            src={meal.image}
             alt={meal.name}
             className="w-full h-52 sm:h-64 md:h-full object-cover"
           />

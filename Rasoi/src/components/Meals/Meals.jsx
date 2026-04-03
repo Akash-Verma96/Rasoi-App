@@ -15,7 +15,7 @@ function Meals() {
   const fetchMeals = async () => {
     try {
       const res = await axios.get(BASE_URL, { withCredentials: true });
-      console.log(res.data);
+      
       setMeals(res.data);
     } catch (error) {
       console.log(error);
