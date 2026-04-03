@@ -44,85 +44,88 @@ export default function Orders() {
   };
 
   return (
-    <div className="min-h-screen bg-orange-50 p-4 md:p-8">
-      <div className="max-w-5xl mx-auto">
-        
-        {/* HEADER */}
-        <h1 className="text-2xl font-semibold text-gray-800 mb-6">
-          My Orders
-        </h1>
+    <div className="min-h-screen bg-orange-50 p-3 sm:p-4 md:p-8">
+  <div className="max-w-5xl mx-auto">
+    
+    {/* HEADER */}
+    <h1 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 sm:mb-6">
+      My Orders
+    </h1>
 
-        {/* TABS */}
-        <div className="flex gap-4 mb-6">
-          <button
-            onClick={() => setActiveTab("current")}
-            className={`px-4 py-2 rounded-lg font-medium transition ${
-              activeTab === "current"
-                ? "bg-orange-500 text-white"
-                : "bg-white text-gray-600"
-            }`}
-          >
-            Current Orders
-          </button>
+    {/* TABS */}
+    <div className="flex gap-3 sm:gap-4 mb-4 sm:mb-6 overflow-x-auto">
+      <button
+        onClick={() => setActiveTab("current")}
+        className={`px-3 sm:px-4 py-2 rounded-lg font-medium whitespace-nowrap transition ${
+          activeTab === "current"
+            ? "bg-orange-500 text-white"
+            : "bg-white text-gray-600"
+        }`}
+      >
+        Current Orders
+      </button>
+    </div>
+
+    {/* ORDER LIST */}
+    <div className="space-y-3 sm:space-y-4">
+
+      {loading ? (
+        <OrdersSkeleton />
+      ) : userOrder.length === 0 ? (
+        <div className="text-center py-12 sm:py-16 text-gray-500">
+          <Package className="mx-auto mb-4" size={36} />
+          <p>No orders found</p>
         </div>
+      ) : (
+        userOrder.map((order) => (
+          <div
+            onClick={handleNavigate}
+            key={order._id}
+            className="bg-white rounded-2xl shadow-sm hover:shadow-md transition p-3 sm:p-4 cursor-pointer"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              
+              {/* LEFT */}
+              <div className="flex items-center gap-3 sm:gap-4">
+                <img
+                  src={order.image}
+                  alt={order.name}
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg object-cover"
+                />
 
-        {/* ORDER LIST */}
-        <div className="space-y-4">
-
-          {loading ? (
-            <OrdersSkeleton />
-          ) : userOrder.length === 0 ? (
-            <div className="text-center py-16 text-gray-500">
-              <Package className="mx-auto mb-4" size={40} />
-              <p>No orders found</p>
-            </div>
-          ) : (
-            userOrder.map((order) => (
-              <div
-                onClick={handleNavigate}
-                key={order._id}
-                className="bg-white rounded-2xl shadow-sm hover:shadow-md transition p-4 flex items-center justify-between cursor-pointer"
-              >
-                {/* LEFT */}r
-                <div className="flex items-center gap-4">
-                  <img
-                    src={order.image}
-                    alt={order.name}
-                    className="w-16 h-16 rounded-lg object-cover"
-                  />
-
-                  <div>
-                    <h3 className="text-gray-800 font-medium">
-                      {order.name}
-                    </h3>
-                    <p className="text-sm text-gray-500">
-                      {order.date}
-                    </p>
-                    <p
-                      className={`text-sm font-medium ${
-                        order.status === "Delivered"
-                          ? "text-green-600"
-                          : "text-orange-500"
-                      }`}
-                    >
-                      {order.status}
-                    </p>
-                  </div>
-                </div>
-
-                {/* RIGHT */}
-                <div className="flex items-center gap-4">
-                  <p className="text-gray-800 font-semibold">
-                    ₹{order.price}
+                <div className="min-w-0">
+                  <h3 className="text-gray-800 font-medium text-sm sm:text-base truncate">
+                    {order.name}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-gray-500 truncate">
+                    {order.date}
                   </p>
-                  <ChevronRight className="text-gray-400" />
+                  <p
+                    className={`text-xs sm:text-sm font-medium ${
+                      order.status === "Delivered"
+                        ? "text-green-600"
+                        : "text-orange-500"
+                    }`}
+                  >
+                    {order.status}
+                  </p>
                 </div>
               </div>
-            ))
-          )}
 
-        </div>
-      </div>
+              {/* RIGHT */}
+              <div className="flex items-center justify-end gap-3 sm:gap-4">
+                <p className="text-gray-800 font-semibold text-sm sm:text-base">
+                  ₹{order.price}
+                </p>
+                <ChevronRight className="text-gray-400" size={18} />
+              </div>
+            </div>
+          </div>
+        ))
+      )}
+
     </div>
+  </div>
+</div>
   );
 }

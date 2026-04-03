@@ -21,6 +21,7 @@ function Cart() {
         withCredentials: true,
       });
 
+      // console.log(res.data);
       setMeal(res.data.items || []);
     } catch (error) {
       console.log(error);
@@ -46,18 +47,18 @@ function Cart() {
     }
   };
 
-  const totalAmount = () => {
-    let a = 0;
-    meals.map((m) => {
-      a += m.meal.price * m.quantity;
-    });
+  // const totalAmount = () => {
+  //   let a = 0;
+  //   meals.map((m) => {
+  //     a += m.meal.price * m.quantity;
+  //   });
 
-    setAmount(a);
-  };
+  //   setAmount(a);
+  // };
 
-  useEffect(() => {
-    totalAmount();
-  }, [meals]);
+  // useEffect(() => {
+  //   totalAmount();
+  // }, [meals]);
 
   const handleSuccess = () => {
 
@@ -106,7 +107,7 @@ function Cart() {
             {meals
             .map((meal) => {
 
-              return (
+               return (
                 <div
                   key={meal.meal._id}
                   className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden group border border-orange-100"
@@ -203,7 +204,7 @@ function Cart() {
           </div>
         </div>
       )}
-    </div>
+    </div>  
   );
 }
 
