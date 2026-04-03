@@ -47,18 +47,18 @@ function Cart() {
     }
   };
 
-  // const totalAmount = () => {
-  //   let a = 0;
-  //   meals.map((m) => {
-  //     a += m.meal.price * m.quantity;
-  //   });
+  const totalAmount = () => {
+    let a = 0;
+    meals.map((m) => {
+      a += m.meal.price * m.quantity;
+    });
 
-  //   setAmount(a);
-  // };
+    setAmount(a);
+  };
 
-  // useEffect(() => {
-  //   totalAmount();
-  // }, [meals]);
+  useEffect(() => {
+    totalAmount();
+  }, [meals]);
 
   const handleSuccess = () => {
 
