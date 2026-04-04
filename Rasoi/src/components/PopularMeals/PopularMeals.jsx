@@ -1,68 +1,36 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../utils/constant";
+import PopularMealsSkeleton from "../Skeletons/PopularMealsSkeleton";
 
-const popularMeals = [
-  {
-    id: 1,
-    name: "Masala Dosa",
-    image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7",
-    description: "Crispy rice crepe filled with spiced potato masala.",
-  },
-  {
-    id: 2,
-    name: "Paneer Tikka",
-    image: "https://images.unsplash.com/photo-1701579231378-3726490a407b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGFuaXJ8ZW58MHx8MHx8fDA%3D",
-    description: "Grilled cottage cheese cubes marinated in spicy yogurt mix.",
-  },
-  {
-    id: 3,
-    name: "Margherita Pizza",
-    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8TWFyZ2hlcml0YSUyMFBpenphfGVufDB8fDB8fHww",
-    description:
-      "Classic pizza topped with fresh mozzarella, basil, and tomato sauce.",
-  },
-  {
-    id: 4,
-    name: "Cheeseburger",
-    image: "https://images.unsplash.com/photo-1550547660-d9450f859349",
-    description:
-      "Juicy grilled patty layered with cheese, lettuce, and sauces.",
-  },
-  {
-    id: 5,
-    name: "Chicken Momos",
-    image: "https://images.unsplash.com/photo-1625943555419-56a2cb596640",
-    description: "Steamed dumplings stuffed with spicy minced chicken.",
-  },
-  {
-    id: 6,
-    name: "Chocolate Brownie",
-    image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c",
-    description: "Rich and fudgy chocolate brownie topped with nuts.",
-  },
-  {
-    id: 7,
-    name: "Butter Chicken",
-    image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398",
-    description:
-      "Creamy tomato-based curry with tender chicken and aromatic spices.",
-  },
-  {
-    id: 8,
-    name: "Veg Biryani",
-    image: "https://images.unsplash.com/photo-1589302168068-964664d93dc0",
-    description:
-      "Fragrant basmati rice cooked with fresh vegetables and Indian spices.",
-  },
-];
 
 function PopularMeals() {
+  const [popularMeals,setPopularMeals] = useState([]);
+  const [loading,setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const handleNavigate = ()=>{
-    return navigate("/mealDetail")
-  }
+    const fetchMeals = async () => {
+    try {
+      const res = await axios.get(BASE_URL, { withCredentials: true });
+      
+      setPopularMeals(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+    finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMeals();
+  }, []);
+
+  if(loading) return <PopularMealsSkeleton />
+
+ 
   return (
     <section className="w-full px-4">
       
@@ -74,7 +42,7 @@ function PopularMeals() {
       <div className="flex gap-4 overflow-x-auto hide-scrollbar scroll-smooth p-4">
         {popularMeals.map((meal) => (
           <div
-            key={meal.id}
+            key={meal._id}
             className="flex flex-col sm:flex-row gap-3
             min-w-65 sm:min-w-[320px] md:min-w-90
             bg-white/10 backdrop-blur-lg
@@ -105,17 +73,16 @@ function PopularMeals() {
                 </p>
               </div>
 
-              <button
-                onClick={handleNavigate}
-                disabled={true}   
-                className="cursor-not-allowed mt-3 sm:mt-2 w-full sm:w-auto px-4 py-2 rounded-xl 
+              <Link
+                to={`mealDetail/${meal._id}`}
+                className="mt-3 sm:mt-2 w-full sm:w-auto px-4 py-2 rounded-xl 
                 bg-orange-500 text-white font-medium
                 hover:bg-orange-600
                 hover:shadow-[0_0_12px_rgba(255,140,0,0.8)]
                 transition"
               >
                 Order Now
-              </button>
+              </Link>
 
             </div>
           </div>

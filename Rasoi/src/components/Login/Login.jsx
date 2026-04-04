@@ -5,6 +5,7 @@ import { BASE_URL } from "../../utils/constant";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../utils/userSlice";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
@@ -30,8 +31,12 @@ const Login = () => {
       );
 
       dispatch(addUser(res.data));
-      alert("Login succesfull !");
-      
+      toast.success("Login Successfull !", {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "dark",
+      });
+
       if (res.data.data.role === "customer") {
         return navigate("/home");
       } else if (res.data.data.role === "restaurant") {

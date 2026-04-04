@@ -5,12 +5,16 @@ import { BASE_URL } from "../../utils/constant";
 import { XCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import MealDetailSkeleton from "../Skeletons/MealDetailSkeleton"
+import {toast} from "react-toastify"
+import { useNavigate } from "react-router-dom";
 
 const MealDetail = () => {
   const [meal, setMeal] = useState({});
   const { mealId } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [loading,setloading] = useState(true);
+
+  const navigate = useNavigate();
 
   const fetchMeal = async () => {
     try {
@@ -36,7 +40,14 @@ const MealDetail = () => {
         quantity
       },{withCredentials:true});
 
-      alert("Meal Added Successfully !")
+       toast.success("Meal added to cart", {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "dark",
+      });
+
+      return navigate("/home/cart");
+
     } catch (error) {
       console.log(error.message)
     }

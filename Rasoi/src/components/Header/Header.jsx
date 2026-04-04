@@ -4,7 +4,7 @@ import { Bell, Search, Menu, X } from "lucide-react";
 import axios from "axios";
 import { BASE_URL } from "../../utils/constant";
 import { Link, useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -20,17 +20,21 @@ function Header() {
         },
       );
 
-      alert("Logout Succesfull !");
+      toast.success("Logout Successfull", {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "dark",
+      });
 
-      return navigate("login");
+      return navigate("/login");
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleHome = ()=>{
-    navigate("/home")
-  }
+  const handleHome = () => {
+    navigate("/home");
+  };
 
   return (
     <header className="w-full px-4 flex items-center justify-between gap-4">
@@ -95,19 +99,31 @@ function Header() {
           {open && (
             <div className="absolute right-0 mt-3 w-48 backdrop-blur-lg rounded-xl shadow-lg border overflow-hidden">
               <ul className="flex flex-col text-orange-300">
-                <Link to={'/restaurant/Dashboard'} className="px-4 py-3 hover:bg-orange-50 cursor-pointer transition">
+                <Link
+                  to={"/restaurant/Dashboard"}
+                  className="px-4 py-3 hover:bg-orange-50 cursor-pointer transition"
+                >
                   Change Your Role
                 </Link>
 
-                <Link to={"/home/cart"} className="px-4 py-3 hover:bg-orange-50 cursor-pointer transition">
+                <Link
+                  to={"/home/cart"}
+                  className="px-4 py-3 hover:bg-orange-50 cursor-pointer transition"
+                >
                   Cart
                 </Link>
 
-                <Link to={"/home/orders"} className="px-4 py-3 hover:bg-orange-50 cursor-pointer transition">
+                <Link
+                  to={"/home/orders"}
+                  className="px-4 py-3 hover:bg-orange-50 cursor-pointer transition"
+                >
                   My Orders
                 </Link>
 
-                <Link to={"/home/profile"} className="px-4 py-3 hover:bg-orange-50 cursor-pointer transition">
+                <Link
+                  to={"/home/profile"}
+                  className="px-4 py-3 hover:bg-orange-50 cursor-pointer transition"
+                >
                   Profile
                 </Link>
               </ul>

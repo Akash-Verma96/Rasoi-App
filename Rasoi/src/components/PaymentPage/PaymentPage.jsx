@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { BASE_URL } from "../../utils/constant";
 import axios from "axios";
+import {toast} from "react-toastify"
 
 function PaymentPage() {
   const [method, setMethod] = useState("upi");
@@ -49,6 +50,12 @@ function PaymentPage() {
         )
 
       setSuccess(true);
+
+      toast.success("Enjoy Your Meal Order Placed!", {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "dark",
+      });
       
     } catch (error) {
       console.log(error);

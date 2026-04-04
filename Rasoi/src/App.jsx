@@ -17,6 +17,8 @@ import PaymentPage from "./components/PaymentPage/PaymentPage.jsx";
 import RestaurantProfile from "./pages/restaurant/RestaurantProfile.jsx";
 import Orders from "./components/Orders/Orders.jsx";
 import OrderDetail from "./components/Orders/OrderDetail.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import 'react-loading-skeleton/dist/skeleton.css';
 
 
@@ -24,6 +26,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 function App() {
   return (
     <>
+      <ToastContainer/>
       <Provider store={appStore}>
       <BrowserRouter>
         <Routes>
