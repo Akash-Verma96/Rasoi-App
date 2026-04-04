@@ -67,7 +67,7 @@ function Cart() {
     dispatch(setDeliveryCharge(amount));
     dispatch(setTotalPrice(amount));
 
-    return navigate('/address')
+    return navigate('/home/address')
   };
 
   const handleIncrement = () => {};

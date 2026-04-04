@@ -16,11 +16,12 @@ function PaymentPage() {
   const [showSuccess, setSuccess] = useState(false);
 
   const orderData = useSelector((store) => store.order);
-  // console.log(orderData.items[0]);
+ 
 
 
   const handlePlaceOrder = async () => {
     try {
+      console.log(method);
       const {restaurant} = orderData.items[0][0].meal;
       const meals = orderData.items[0];
    
@@ -74,7 +75,7 @@ function PaymentPage() {
               </p>
 
               <Link
-                to={"/"}
+                to={"/home"}
                 className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-semibold transition w-full sm:w-auto"
               >
                 Continue Shopping 🛒
@@ -130,7 +131,7 @@ function PaymentPage() {
           </div>
 
           {/* Card */}
-          <div
+          {/* <div
             onClick={() => setMethod("card")}
             className={`p-4 border rounded-xl flex items-center gap-4 cursor-pointer transition ${
               method === "card"
@@ -143,10 +144,10 @@ function PaymentPage() {
               <p className="font-semibold text-gray-800">Card</p>
               <p className="text-sm text-gray-500">Debit / Credit Card</p>
             </div>
-          </div>
+          </div> */}
 
           {/* Net Banking */}
-          <div
+          {/* <div
             onClick={() => setMethod("netbanking")}
             className={`p-4 border rounded-xl flex items-center gap-4 cursor-pointer transition ${
               method === "netbanking"
@@ -159,7 +160,7 @@ function PaymentPage() {
               <p className="font-semibold text-gray-800">Net Banking</p>
               <p className="text-sm text-gray-500">All major banks supported</p>
             </div>
-          </div>
+          </div> */}
 
           {/* COD */}
           <div

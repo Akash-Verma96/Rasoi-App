@@ -26,7 +26,7 @@ function OrderDetail() {
           restaurant: "Akash Rasoi",
         }))
       
-        // console.log(formattedData);
+        
       setOrder(formattedData);
     } catch (error) {
       console.log(error);
@@ -34,7 +34,7 @@ function OrderDetail() {
   };
   const getLatLng = async () => {
   const address = "Mirjamurad, Varanasi, Uttar Pradesh, 221307, India";
-  console.log("fetching...");
+
   const res = await fetch(
     `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&addressdetails=1`
   );
@@ -47,7 +47,7 @@ function OrderDetail() {
 
   useEffect(() => {
     fetchOrder();
-    getLatLng();
+    
   }, []);
 
 

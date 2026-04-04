@@ -33,7 +33,7 @@ export default function Address() {
     }
     
     dispatch(setAddress(form));
-    return navigate('/payment');
+    return navigate('/home/payment');
   };
 
   return (

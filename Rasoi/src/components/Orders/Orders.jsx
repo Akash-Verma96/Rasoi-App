@@ -40,7 +40,7 @@ export default function Orders() {
   }, []);
 
   const handleNavigate = () => {
-    navigate("/orderDetail");
+    navigate("/home/orderDetail");
   };
 
   return (

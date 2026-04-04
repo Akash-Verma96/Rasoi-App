@@ -4,11 +4,13 @@ import { useParams } from "react-router-dom";
 import { BASE_URL } from "../../utils/constant";
 import { XCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import MealDetailSkeleton from "../Skeletons/MealDetailSkeleton"
 
 const MealDetail = () => {
   const [meal, setMeal] = useState({});
   const { mealId } = useParams();
   const [quantity, setQuantity] = useState(1);
+  const [loading,setloading] = useState(true);
 
   const fetchMeal = async () => {
     try {
@@ -18,6 +20,9 @@ const MealDetail = () => {
       setMeal(res.data);
     } catch (error) {
       console.log(error);
+    }
+    finally{
+      setloading(false);
     }
   };
 
@@ -44,6 +49,8 @@ const MealDetail = () => {
   const handleDecrement = () => {
     if (quantity > 1) setQuantity(quantity - 1);
   };
+
+  if(loading) return <MealDetailSkeleton />
 
   return (
     <div className="min-h-screen flex justify-center items-center p-3 sm:p-4">

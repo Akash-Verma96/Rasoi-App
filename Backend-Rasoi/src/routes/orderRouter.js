@@ -27,6 +27,7 @@ orderRouter.post("/payment", userAuth, async (req, res) => {
       image: item.meal.image,
       quantity: item.quantity,
     }));
+
     
 
        const order = new Order({
