@@ -33,7 +33,7 @@ const Login = () => {
       alert("Login succesfull !");
       
       if (res.data.data.role === "customer") {
-        return navigate("/");
+        return navigate("/home");
       } else if (res.data.data.role === "restaurant") {
         return navigate("/restaurant/Dashboard");
       }
@@ -59,7 +59,7 @@ const Login = () => {
 
       alert("Sign Up Succesfull !");
       if (role === "customer") {
-        return navigate("/");
+        return navigate("/home");
       } else if (role === "restaurant") {
         return navigate("/restaurant/Profile");
       }

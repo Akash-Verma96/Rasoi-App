@@ -49,7 +49,7 @@ const MealDetail = () => {
     <div className="min-h-screen flex justify-center items-center p-3 sm:p-4">
       <div className="max-w-5xl w-full max-h-130 bg-white/90 rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row relative">
         {/* Close Button */}
-        <Link to={"/"} className="absolute top-3 right-3">
+        <Link to={"/home"} className="absolute top-3 right-3">
           <XCircle
             size={26}
             className="hover:scale-110 text-orange-300 duration-200 hover:text-orange-500"

@@ -109,7 +109,7 @@ function Category() {
           >
             {/* Image */}
             <div
-              className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden 
+              className="w-24 h-24 cursor-not-allowed sm:w-28 sm:h-28 rounded-full overflow-hidden 
               border-2 border-orange-400 shadow-md 
               hover:scale-105 transition duration-300"
             >

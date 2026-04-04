@@ -29,7 +29,7 @@ function Header() {
   };
 
   const handleHome = ()=>{
-    navigate("/")
+    navigate("/home")
   }
 
   return (
@@ -99,15 +99,15 @@ function Header() {
                   Change Your Role
                 </Link>
 
-                <Link to={"/cart"} className="px-4 py-3 hover:bg-orange-50 cursor-pointer transition">
+                <Link to={"/home/cart"} className="px-4 py-3 hover:bg-orange-50 cursor-pointer transition">
                   Cart
                 </Link>
 
-                <Link to={"/orders"} className="px-4 py-3 hover:bg-orange-50 cursor-pointer transition">
+                <Link to={"/home/orders"} className="px-4 py-3 hover:bg-orange-50 cursor-pointer transition">
                   My Orders
                 </Link>
 
-                <Link to={"/profile"} className="px-4 py-3 hover:bg-orange-50 cursor-pointer transition">
+                <Link to={"/home/profile"} className="px-4 py-3 hover:bg-orange-50 cursor-pointer transition">
                   Profile
                 </Link>
               </ul>

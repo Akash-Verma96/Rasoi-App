@@ -66,7 +66,7 @@ useEffect(() => {
         shadow-[0_0_25px_rgba(255,140,0,0.6)] 
         rounded-2xl px-4 py-3"
       >
-        <Link to={"/"} className="flex flex-col items-center text-orange-400 hover:text-orange-300 transition duration-300 cursor-pointer hover:scale-110">
+        <Link to={"/home"} className="flex flex-col items-center text-orange-400 hover:text-orange-300 transition duration-300 cursor-pointer hover:scale-110">
           <Home size={22} />
           <span className="text-xs mt-1">Home</span>
         </Link>

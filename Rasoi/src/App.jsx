@@ -17,7 +17,6 @@ import PaymentPage from "./components/PaymentPage/PaymentPage.jsx";
 import RestaurantProfile from "./pages/restaurant/RestaurantProfile.jsx";
 import Orders from "./components/Orders/Orders.jsx";
 import OrderDetail from "./components/Orders/OrderDetail.jsx";
-
 import 'react-loading-skeleton/dist/skeleton.css';
 
 
@@ -28,12 +27,12 @@ function App() {
       <Provider store={appStore}>
       <BrowserRouter>
         <Routes>
-          <Route path="Onboarding" element={<Onboarding />} />
+          <Route path="/" element={<Onboarding />} />
           <Route path="Onboarding2" element={<Onboarding2 />} />
           <Route path="/login" element={<Login />} />
           
-          <Route path="/" element={<Layout />}>
-            <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Layout />}>
+            <Route path="/home" element={<Home />} />
             <Route path="cart" element={<Cart />} />
             <Route path="orders" element={<Orders />} />
             <Route path="orderDetail" element={<OrderDetail />} />
@@ -42,10 +41,14 @@ function App() {
             <Route path="address" element={<Address />} />
             <Route path="payment" element={<PaymentPage />} />
             <Route path="mealDetail/:mealId" element={<MealDetail />} />
-            <Route path="restaurant/Profile" element={<RestaurantProfile />} />
-            <Route path="restaurant/Dashboard" element={<Dashboard />} />
-            <Route path="restaurant/addMeal" element={<AddMeal />} />
           </Route>
+
+          <Route path="/restaurant">
+            <Route path="Profile" element={<RestaurantProfile />} />
+            <Route path="Dashboard" element={<Dashboard />} />
+            <Route path="addMeal" element={<AddMeal />} />
+          </Route>
+
         </Routes>
       </BrowserRouter>
     </Provider>

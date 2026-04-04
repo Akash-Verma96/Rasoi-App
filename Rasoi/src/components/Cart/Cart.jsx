@@ -21,7 +21,7 @@ function Cart() {
         withCredentials: true,
       });
 
-      // console.log(res.data);
+      
       setMeal(res.data.items || []);
     } catch (error) {
       console.log(error);

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const popularMeals = [
   {
@@ -57,6 +58,11 @@ const popularMeals = [
 ];
 
 function PopularMeals() {
+  const navigate = useNavigate();
+
+  const handleNavigate = ()=>{
+    return navigate("/mealDetail")
+  }
   return (
     <section className="w-full px-4">
       
@@ -99,16 +105,17 @@ function PopularMeals() {
                 </p>
               </div>
 
-              <Link
-                to={'/mealDetail'}
-                className="mt-3 sm:mt-2 w-full sm:w-auto px-4 py-2 rounded-xl 
+              <button
+                onClick={handleNavigate}
+                disabled={true}   
+                className="cursor-not-allowed mt-3 sm:mt-2 w-full sm:w-auto px-4 py-2 rounded-xl 
                 bg-orange-500 text-white font-medium
                 hover:bg-orange-600
                 hover:shadow-[0_0_12px_rgba(255,140,0,0.8)]
                 transition"
               >
                 Order Now
-              </Link>
+              </button>
 
             </div>
           </div>
