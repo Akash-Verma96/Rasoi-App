@@ -16,7 +16,7 @@ function PopularMeals() {
       const res = await axios.get(BASE_URL, { withCredentials: true });
 
       setPopularMeals(res.data);
-    } catch (error) {
+    } catch (err) {
       toast.error(err?.response?.data, {
         position: "top-right",
         autoClose: 2000,
