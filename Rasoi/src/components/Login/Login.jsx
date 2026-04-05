@@ -43,7 +43,11 @@ const Login = () => {
         return navigate("/restaurant/Dashboard");
       }
     } catch (err) {
-      setError(err?.response?.data);
+      toast.error(err?.response?.data, {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "dark",
+      });
     }
   };
 
@@ -69,7 +73,11 @@ const Login = () => {
         return navigate("/restaurant/Profile");
       }
     } catch (err) {
-      setError(err?.response?.data);
+      toast.error(err?.response?.data, {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "dark",
+      });
     }
   };
 

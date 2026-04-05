@@ -4,22 +4,25 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../utils/constant";
 import PopularMealsSkeleton from "../Skeletons/PopularMealsSkeleton";
-
+import {toast} from "react-toastify"
 
 function PopularMeals() {
-  const [popularMeals,setPopularMeals] = useState([]);
-  const [loading,setLoading] = useState(true);
+  const [popularMeals, setPopularMeals] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-    const fetchMeals = async () => {
+  const fetchMeals = async () => {
     try {
       const res = await axios.get(BASE_URL, { withCredentials: true });
-      
+
       setPopularMeals(res.data);
     } catch (error) {
-      console.log(error);
-    }
-    finally {
+      toast.error(err?.response?.data, {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "dark",
+      });
+    } finally {
       setLoading(false);
     }
   };
@@ -28,12 +31,10 @@ function PopularMeals() {
     fetchMeals();
   }, []);
 
-  if(loading) return <PopularMealsSkeleton />
+  if (loading) return <PopularMealsSkeleton />;
 
- 
   return (
     <section className="w-full px-4">
-      
       <h2 className="text-lg sm:text-xl font-semibold text-orange-400 mb-4">
         Popular Meals 🔥
       </h2>
@@ -52,7 +53,6 @@ function PopularMeals() {
             hover:shadow-[0_0_25px_rgba(255,140,0,0.6)]
             transition duration-300 hover:scale-105"
           >
-            
             {/* Image */}
             <img
               src={`${meal.image}?w=500&auto=format&fit=crop`}
@@ -62,7 +62,6 @@ function PopularMeals() {
 
             {/* Content */}
             <div className="flex flex-col justify-between flex-1">
-              
               <div>
                 <h3 className="text-base sm:text-lg font-semibold text-white">
                   {meal.name}
@@ -83,7 +82,6 @@ function PopularMeals() {
               >
                 Order Now
               </Link>
-
             </div>
           </div>
         ))}

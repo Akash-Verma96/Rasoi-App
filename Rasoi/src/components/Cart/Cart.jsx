@@ -2,31 +2,34 @@ import React, { useState, useEffect } from "react";
 import { BASE_URL } from "../../utils/constant";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import {useDispatch } from "react-redux";
-import { addItems, setDeliveryCharge, setItemsPrice, setTotalPrice} from "../../utils/orderSlice";
-import CartSkeleton from "../Skeletons/CartSkeleton"
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import {
+  addItems,
+  setDeliveryCharge,
+  setItemsPrice,
+  setTotalPrice,
+} from "../../utils/orderSlice";
+import CartSkeleton from "../Skeletons/CartSkeleton";
 
 function Cart() {
   const [meals, setMeal] = useState([]);
   const [amount, setAmount] = useState(0);
-  const [loading,setloading] = useState(true);
+  const [loading, setloading] = useState(true);
   const dispatch = useDispatch();
-  
+
   const navigate = useNavigate();
 
   const fetchMeal = async () => {
-
     try {
       const res = await axios.get(BASE_URL + "/cart", {
         withCredentials: true,
       });
 
-      
       setMeal(res.data.items || []);
     } catch (error) {
       console.log(error);
-    }
-    finally {
+    } finally {
       setloading(false);
     }
   };
@@ -42,8 +45,17 @@ function Cart() {
       });
 
       setMeal((prev) => prev.filter((meal) => meal.meal._id !== mealId));
+      toast.success("Meal Deleted Successfully!", {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "dark",
+      });
     } catch (error) {
-      console.log(error.message);
+      toast.error(err?.response?.data, {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "dark",
+      });
     }
   };
 
@@ -61,25 +73,23 @@ function Cart() {
   }, [meals]);
 
   const handleSuccess = () => {
-
     dispatch(addItems(meals));
     dispatch(setItemsPrice(amount));
     dispatch(setDeliveryCharge(amount));
     dispatch(setTotalPrice(amount));
 
-    return navigate('/home/address')
+    return navigate("/home/address");
   };
 
   const handleIncrement = () => {};
 
   const handleDecrement = () => {};
 
-  if(loading) return <CartSkeleton />
+  if (loading) return <CartSkeleton />;
 
   return (
     <div className="relative w-full min-h-screen px-3 sm:px-6 py-8">
       {/* Success Modal */}
-      
 
       {/* Heading */}
       <h2 className="text-xl sm:text-2xl font-bold text-orange-500 mb-6">
@@ -94,7 +104,7 @@ function Cart() {
           </p>
 
           <Link
-            to="/"
+            to="/home"
             className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-semibold transition"
           >
             Browse Meals 🛒
@@ -104,10 +114,8 @@ function Cart() {
         <div className="flex flex-col xl:flex-row gap-8">
           {/* Cart Items */}
           <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 flex-1">
-            {meals
-            .map((meal) => {
-
-               return (
+            {meals.map((meal) => {
+              return (
                 <div
                   key={meal.meal._id}
                   className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden group border border-orange-100"
@@ -204,7 +212,7 @@ function Cart() {
           </div>
         </div>
       )}
-    </div>  
+    </div>
   );
 }
 

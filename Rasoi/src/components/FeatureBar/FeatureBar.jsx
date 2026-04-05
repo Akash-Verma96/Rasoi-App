@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function FeatureBar() {
 
-  const [openBar,setOpenBar] = useState(false);
+  const [openBar,setOpenBar] = useState(true);
   const [position, setPosition] = useState({ x: 50, y: 100 });
   const [dragging, setDragging] = useState(false);
 

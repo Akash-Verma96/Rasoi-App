@@ -56,13 +56,12 @@ function PaymentPage() {
         theme: "dark",
       });
       
-    } catch (error) {
-      toast.error(error.message,{
-        position:"top-right",
-        autoClose: 2000,
-        theme: "dark",
-      })
-      console.log(error);
+    } catch (err) {
+      toast.error(err?.response?.data, {
+              position: "top-right",
+              autoClose: 2000,
+              theme: "dark",
+            });
     }
   };
 
