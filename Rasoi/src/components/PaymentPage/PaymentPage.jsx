@@ -22,7 +22,6 @@ function PaymentPage() {
 
   const handlePlaceOrder = async () => {
     try {
-      console.log(method);
       const {restaurant} = orderData.items[0][0].meal;
       const meals = orderData.items[0];
    
@@ -58,6 +57,11 @@ function PaymentPage() {
       });
       
     } catch (error) {
+      toast.error(error.message,{
+        position:"top-right",
+        autoClose: 2000,
+        theme: "dark",
+      })
       console.log(error);
     }
   };
