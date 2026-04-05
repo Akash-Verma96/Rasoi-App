@@ -132,17 +132,17 @@ function FeatureBar() {
             <span className="text-xs mt-1">Home</span>
           </Link>
 
-          <Link to="/cart" className="flex flex-col items-center text-orange-400 hover:text-orange-300 hover:scale-110 transition">
+          <Link to="/home/cart" className="flex flex-col items-center text-orange-400 hover:text-orange-300 hover:scale-110 transition">
             <ShoppingCart size={22} />
             <span className="text-xs mt-1">Cart</span>
           </Link>
 
-          <Link to="/orders" className="flex flex-col items-center text-orange-400 hover:text-orange-300 hover:scale-110 transition">
+          <Link to="/home/orders" className="flex flex-col items-center text-orange-400 hover:text-orange-300 hover:scale-110 transition">
             <Grid size={22} />
             <span className="text-xs mt-1">Orders</span>
           </Link>
 
-          <Link to="/profile" className="flex flex-col items-center text-orange-400 hover:text-orange-300 hover:scale-110 transition">
+          <Link to="/home/profile" className="flex flex-col items-center text-orange-400 hover:text-orange-300 hover:scale-110 transition">
             <User size={22} />
             <span className="text-xs mt-1">Profile</span>
           </Link>
