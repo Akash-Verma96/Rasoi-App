@@ -57,7 +57,7 @@ function PaymentPage() {
       });
       
     } catch (err) {
-      toast.error(err?.response?.data, {
+      toast.error(err?.response?.data || "Something went wrong !", {
               position: "top-right",
               autoClose: 2000,
               theme: "dark",

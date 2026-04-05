@@ -68,7 +68,7 @@ const orderSchema = new mongoose.Schema(
       pincode: {
         type: Number,
         required: true,
-        min: 100000,
+        match: [/^[1-9][0-9]{5}$/, "Invalid pincode"]
       },
       lat: {
         type: Number,
