@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MapPin, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAddress } from "../../utils/orderSlice";
+import { toast } from "react-toastify";
 
 export default function Address() {
   const [form, setForm] = useState({
@@ -16,6 +17,20 @@ export default function Address() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+ useEffect(()=>{
+    const hasSeenInfo = localStorage.getItem("address_warning");
+
+    if(!hasSeenInfo){
+      toast.info("Do not refresh this page", {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "dark",
+      })
+
+      localStorage.setItem("address_warning", "true");
+    }
+ },[])
   
 
   const handleChange = (e) => {

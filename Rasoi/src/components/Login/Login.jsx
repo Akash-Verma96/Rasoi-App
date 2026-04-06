@@ -66,7 +66,12 @@ const Login = () => {
         { withCredentials: true },
       );
 
-      alert("Sign Up Succesfull !");
+      toast.success("SignUp Successfull !", {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "dark",
+      });
+
       if (role === "customer") {
         return navigate("/home");
       } else if (role === "restaurant") {
