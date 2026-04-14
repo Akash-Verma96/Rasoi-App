@@ -9,41 +9,20 @@ import Restaurant from "../models/restaurant.js";
 
 const addMealRouter = express.Router();
 
-addMealRouter.post("/restaurant/addMeal",userAuth,upload.single("image"),async (req, res) => {
+addMealRouter.post("/restaurant/addMeal",upload.single("image"),userAuth,async (req, res) => {
     try {
-      const userId = req.user._id;
-      const { name, price, category, description } = req.body;
-      
+      console.log("File : " ,req.file);
 
       if (!req.file) {
-        return res.status(400).send("Image file required !");
-      }
+  return res.status(400).json({ error: "Image missing" });
+}
 
-      const rest = await Restaurant.findOne({ owner:userId });
-
-      if (!rest) {
-        return res.status(404).json({ message: "Restaurant not found" });
-      }
-
-      const restaurantId = rest._id;
-
-      const meal = new Meal({
-        restaurant: restaurantId,
-        name,
-        price,
-        category,
-        description,
-        image: req.file.path,
+      res.status(200).json({
+        imageUrl : req.file.path,
       });
-
-      await meal.save();
-
-      res.status(201).json({
-        message: "Meal added successfully",
-        meal,
-      });
-    } catch (err) {
-      res.status(500).send(err.message);
+    } catch (error) {
+      console.log("Upload Error !", error);
+      res.status(500).send("Add meal backend Nahi chal rha hai !");
     }
   },
 );

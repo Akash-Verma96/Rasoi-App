@@ -41,19 +41,19 @@ function AddMeal() {
       formData.append("image",image);
 
 
-      console.log("IMAGE:", image);
+    
     const res = await axios.post(
-  BASE_URL + "/restaurant/addMeal",
+  BASE_URL + "restaurant/addMeal",
   formData,
   {
     withCredentials: true,
   }
 );
 
-      console.log(res.data);
+      console.log(res);
       alert("Meal added Successfully !");
     } catch (error) {
-      console.log(error.response?.data)
+      console.log("Add Meal frontend me error hai !")
     }
   }
 

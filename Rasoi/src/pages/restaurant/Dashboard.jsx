@@ -1,163 +1,168 @@
 import React, { useEffect, useState } from "react";
-import { Home, Utensils, ShoppingBag, Settings, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../utils/constant";
-
+import { useDispatch } from "react-redux";
+import { addOrders, settotalMeals } from "../../utils/restaurantSlice";
+import RestaurantDashboardSkeleton from "../../components/Skeletons/RestaurantDashboardSkeleton";
+import { toast } from "react-toastify"
 
 function Dashboard() {
-
-  const [restaurant,setRestaourant] = useState({});
+  const [restaurant, setRestaourant] = useState({});
+  const [loading, setloading] = useState(true);
+  const [mealsSize, setMealsSize] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const fetchRestaurant = async ()=>{
-      try {
-        const res = await axios.get(BASE_URL + "/restaurant/Dashboard",{withCredentials:true});
-
-        setRestaourant(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-  }
-
-  useEffect(()=>{
-    fetchRestaurant();
-  },[])
-
- const handleLogout = async () => {
+  const fetchRestaurant = async () => {
     try {
-      await axios.post(
-        BASE_URL + "/logout",
-        {},
-        {
-          withCredentials: true,
-        },
-      );
+      const res = await axios.get(BASE_URL + "/restaurant/Dashboard", {
+        withCredentials: true,
+      });
 
-      alert("Logout Succesfull !");
+      setRestaourant(res.data);
 
-      return navigate("/login");
+      const mealsData = await axios.get(BASE_URL + "/restaurant/meals", {
+        withCredentials: true,
+      });
+
+      dispatch(settotalMeals(mealsData.data));
+      setMealsSize(mealsData.data);
+
+      const ordersData = await axios.get(BASE_URL + "/restaurant/orders", {
+        withCredentials: true,
+      });
+
+      dispatch(addOrders(ordersData.data));
+      setOrders(ordersData.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setloading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRestaurant();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
+
+      toast.success("Data Added Successfully !", {
+              position: "top-right",
+              autoClose: 2000,
+              theme: "dark",
+            });
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }
   };
 
-
-
-  
+  if (loading) return <RestaurantDashboardSkeleton />;
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-orange-500 text-white p-5 hidden md:flex flex-col">
-        <h1 className="text-2xl font-bold mb-10">Rasoi</h1>
+    <div className="w-full">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-8 gap-4">
+        <h2 className="text-2xl font-bold text-gray-700">
+          {restaurant.restaurantName}
+        </h2>
 
-        <nav className="space-y-4">
-          <div className="flex items-center gap-3 hover:bg-orange-600 p-2 rounded-lg cursor-pointer">
-            <Home size={20} />
-            Dashboard
-          </div>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            to={"/restaurant/addMeal"}
+            className="flex items-center gap-2 bg-orange-500 text-white px-3 py-2 rounded-lg hover:bg-orange-600"
+          >
+            <Plus size={18} />
+            AddMeal
+          </Link>
 
-          <div className="flex items-center gap-3 hover:bg-orange-600 p-2 rounded-lg cursor-pointer">
-            <Utensils size={20} />
-            Meals
-          </div>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 bg-orange-500 text-white px-3 py-2 rounded-lg hover:bg-orange-600"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
 
-          <div className="flex items-center gap-3 hover:bg-orange-600 p-2 rounded-lg cursor-pointer">
-            <ShoppingBag size={20} />
-            Orders
-          </div>
-
-          <div className="flex items-center gap-3 hover:bg-orange-600 p-2 rounded-lg cursor-pointer">
-            <Settings size={20} />
-            Settings
-          </div>
-        </nav>
-      </aside>
-
-      {/* Main Content */}
-      <div className="flex-1 p-6">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-700">
-            {restaurant.restaurantName}
-          </h2>
-
-          <div className="flex justify-between items-center gap-3" >
-            <Link
-              to={"/restaurant/addMeal"}
-              className="w-full flex items-center gap-2 bg-orange-500 text-white px-2 py-1 md:px-4 md:py-2 rounded-lg hover:bg-orange-600"
-            >
-              <Plus size={18} />
-              AddMeal
-            </Link>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 bg-orange-500 text-white px-2 py-1 md:px-4 md:py-2 rounded-lg hover:bg-orange-600"
-            >
-              Logout
-            </button>
-          </div>
+      {/* Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+        <div className="bg-white shadow rounded-xl p-5">
+          <h3 className="text-gray-500">Total Orders</h3>
+          <p className="text-3xl font-bold text-orange-500">{orders.length}</p>
         </div>
 
-        {/* Stats */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white shadow rounded-xl p-5">
-            <h3 className="text-gray-500">Total Orders</h3>
-            <p className="text-3xl font-bold text-orange-500">120</p>
-          </div>
-
-          <div className="bg-white shadow rounded-xl p-5">
-            <h3 className="text-gray-500">Total Meals</h3>
-            <p className="text-3xl font-bold text-orange-500">35</p>
-          </div>
-
-          <div className="bg-white shadow rounded-xl p-5">
-            <h3 className="text-gray-500">Revenue</h3>
-            <p className="text-3xl font-bold text-orange-500">₹25,400</p>
-          </div>
+        <div className="bg-white shadow rounded-xl p-5">
+          <h3 className="text-gray-500">Total Meals</h3>
+          <p className="text-3xl font-bold text-orange-500">
+            {mealsSize.length}
+          </p>
         </div>
 
-        {/* Recent Orders */}
-        <div className="bg-white text-gray-700 shadow rounded-xl p-6">
-          <h3 className="text-lg font-semibold mb-4">Recent Orders</h3>
+        <div className="bg-white shadow rounded-xl p-5">
+          <h3 className="text-gray-500">Revenue</h3>
+          <p className="text-3xl font-bold text-orange-500">₹25,400</p>
+        </div>
+      </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b">
-                  <th className="py-2">Order ID</th>
-                  <th>Customer</th>
-                  <th>Meal</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
+      {/* Recent Orders */}
+      <div className="bg-white text-gray-700 shadow rounded-xl p-6">
+        <h3 className="text-lg font-semibold mb-4">Recent Orders</h3>
 
-              <tbody>
-                <tr className="border-b">
-                  <td className="py-2">#1021</td>
-                  <td>Rahul</td>
-                  <td>Paneer Butter Masala</td>
-                  <td className="text-green-500 font-medium">Delivered</td>
-                </tr>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left min-w-125">
+            <thead>
+              <tr className="border-b">
+                <th className="py-2">Order ID</th>
+                <th>Customer</th>
+                <th>Meal</th>
+                <th>Status</th>
+              </tr>
+            </thead>
 
-                <tr className="border-b">
-                  <td className="py-2">#1022</td>
-                  <td>Aman</td>
-                  <td>Veg Biryani</td>
-                  <td className="text-yellow-500 font-medium">Preparing</td>
-                </tr>
+            <tbody>
+              {orders
+              ?.slice(-5)
+              .reverse()
+              .map((order) => (
+                <tr
+                  key={order._id}
+                  className="border-b text-gray-600 hover:bg-gray-50"
+                >
+                  <td className="py-3 font-medium">#{order._id?.slice(-5)}</td>
 
-                <tr>
-                  <td className="py-2">#1023</td>
-                  <td>Sneha</td>
-                  <td>Masala Dosa</td>
-                  <td className="text-orange-500 font-medium">Pending</td>
+                  <td>{order.address.address[0].name || "User"}</td>
+
+                  <td>{order.items[0].name}</td>
+
+                  <td className="text-orange-600 font-semibold">
+                    ₹{order.totalPrice}
+                  </td>
+
+                  <td>
+                    <span
+                      className={`px-3 py-1 text-sm rounded-full font-medium ${
+                        order.status === "Delivered"
+                          ? "bg-green-100 text-green-600"
+                          : order.status === "Preparing"
+                            ? "bg-yellow-100 text-yellow-600"
+                            : "bg-orange-100 text-orange-600"
+                      }`}
+                    >
+                      {order.status}
+                    </span>
+                  </td>
                 </tr>
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

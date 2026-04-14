@@ -1,46 +1,80 @@
-import express from 'express'
-import userAuth from '../middlewares/auth.js';
-import Restaurant from '../models/restaurant.js';
+import express from "express";
+import userAuth from "../middlewares/auth.js";
+import Restaurant from "../models/restaurant.js";
+import Meal from "../models/meal.js";
+import Order from "../models/order.js";
 
 const restaurantRouter = express.Router();
 
-restaurantRouter.post("/restaurant/Profile",userAuth, async(req,res)=>{
-   try {
-        const owner = req.user._id;
+restaurantRouter.post("/restaurant/Profile", userAuth, async (req, res) => {
+  try {
+    const owner = req.user._id;
 
-        const {restaurantName,description,address,state,city,pincode} = req.body;
-        
-        const restaurant = new Restaurant({
-            owner,
-            restaurantName,
-            description,
-            address,
-            state,
-            city,
-            pincode
-        })
+    const { restaurantName, description, address, state, city, pincode } =
+      req.body;
 
-        const data = await restaurant.save();
+    const restaurant = new Restaurant({
+      owner,
+      restaurantName,
+      description,
+      address,
+      state,
+      city,
+      pincode,
+    });
 
-        res.status(201).json({
-            message:"Restaurant data save successfully !",
-            data: data
-        })
-   } catch (error) {
-        res.status(500).send(error.message);
-   }
-})
+    const data = await restaurant.save();
 
-restaurantRouter.get("/restaurant/Dashboard", userAuth, async(req,res)=>{
-    try {
-        const userId = req.user._id;
+    res.status(201).json({
+      message: "Restaurant data save successfully !",
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
-        const user = await Restaurant.findOne({owner:userId});
+restaurantRouter.get("/restaurant/Dashboard", userAuth, async (req, res) => {
+  try {
+    const userId = req.user._id;
 
-        res.send(user);
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-})
+    const user = await Restaurant.findOne({ owner: userId });
+
+    res.send(user);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+restaurantRouter.get("/restaurant/meals", userAuth, async (req, res) => {
+  try {
+    const owner = req.user._id;
+
+    const rest = await Restaurant.findOne({ owner });
+
+    const restaurant = rest._id;
+    const meals = await Meal.find({ restaurant });
+
+    res.send(meals);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+restaurantRouter.get("/restaurant/orders", userAuth, async (req, res) => {
+  try {
+    const owner = req.user._id;
+
+    const rest = await Restaurant.findOne({ owner });
+
+    const restaurantId = rest._id;
+
+    const orders = await Order.find({ restaurantId });
+
+    res.send(orders);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 export default restaurantRouter;

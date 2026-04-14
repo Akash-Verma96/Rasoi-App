@@ -20,6 +20,11 @@ import OrderDetail from "./components/Orders/OrderDetail.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import 'react-loading-skeleton/dist/skeleton.css';
+import RestaurantMeals from "./pages/restaurant/RestaurantMeals.jsx";
+import RestaurantLayout from "./pages/restaurant/RestaurantLayout.jsx";
+import RestaurantOrder from "./pages/restaurant/RestaurantOrder.jsx";
+import RestaurantSetting from "./pages/restaurant/RestaurantSetting.jsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 
 
 
@@ -35,7 +40,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           
           <Route path="/home" element={<Layout />}>
-            <Route path="/home" element={<Home />} />
+            <Route path="" element={<Home />} />
             <Route path="cart" element={<Cart />} />
             <Route path="orders" element={<Orders />} />
             <Route path="orderDetail" element={<OrderDetail />} />
@@ -46,10 +51,19 @@ function App() {
             <Route path="mealDetail/:mealId" element={<MealDetail />} />
           </Route>
 
-          <Route path="/restaurant">
-            <Route path="Profile" element={<RestaurantProfile />} />
+
+          <Route path="/restaurant/Profile" element={<RestaurantProfile />} />
+          <Route path="/restaurant/addMeal" element={<AddMeal />} />
+
+          <Route path="/restaurant" element={<RestaurantLayout />} >
             <Route path="Dashboard" element={<Dashboard />} />
-            <Route path="addMeal" element={<AddMeal />} />
+            <Route path="meals" element={<RestaurantMeals />} />
+            <Route path="orders" element={<RestaurantOrder />} />
+            <Route path="setting" element={<RestaurantSetting />} />
+          </Route>
+
+          <Route path="/admin" >
+            <Route path="" element={<AdminDashboard />} />
           </Route>
 
         </Routes>
