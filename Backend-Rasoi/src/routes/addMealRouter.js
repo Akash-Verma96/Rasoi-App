@@ -1,7 +1,6 @@
 // Isme cart router hai
 
 import express from "express";
-import upload from "../middlewares/multer.js";
 import Meal from "../models/meal.js";
 import userAuth from "../middlewares/auth.js";
 import Cart from "../models/cart.js";
@@ -9,23 +8,6 @@ import Restaurant from "../models/restaurant.js";
 
 const addMealRouter = express.Router();
 
-addMealRouter.post("/restaurant/addMeal",upload.single("image"),userAuth,async (req, res) => {
-    try {
-      console.log("File : " ,req.file);
-
-      if (!req.file) {
-  return res.status(400).json({ error: "Image missing" });
-}
-
-      res.status(200).json({
-        imageUrl : req.file.path,
-      });
-    } catch (error) {
-      console.log("Upload Error !", error);
-      res.status(500).send("Add meal backend Nahi chal rha hai !");
-    }
-  },
-);
 
 addMealRouter.post("/mealDetail/:mealId", userAuth, async (req, res) => {
   try {

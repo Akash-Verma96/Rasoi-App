@@ -76,6 +76,8 @@ const Login = () => {
         return navigate("/home");
       } else if (role === "restaurant") {
         return navigate("/restaurant/Profile");
+      } else if (role === "admin") {
+        return navigate("/admin");
       }
     } catch (err) {
       toast.error(err?.response?.data, {

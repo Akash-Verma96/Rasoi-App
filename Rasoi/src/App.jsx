@@ -24,7 +24,8 @@ import RestaurantMeals from "./pages/restaurant/RestaurantMeals.jsx";
 import RestaurantLayout from "./pages/restaurant/RestaurantLayout.jsx";
 import RestaurantOrder from "./pages/restaurant/RestaurantOrder.jsx";
 import RestaurantSetting from "./pages/restaurant/RestaurantSetting.jsx";
-import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
+import AdminPanel from "./pages/admin/AdminPanel.jsx";
+
 
 
 
@@ -63,7 +64,7 @@ function App() {
           </Route>
 
           <Route path="/admin" >
-            <Route path="" element={<AdminDashboard />} />
+            <Route path="" element={<AdminPanel />} />
           </Route>
 
         </Routes>
