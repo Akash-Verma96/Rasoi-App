@@ -99,12 +99,7 @@ function Header() {
           {open && (
             <div className="absolute right-0 mt-3 w-48 backdrop-blur-lg rounded-xl shadow-lg border overflow-hidden">
               <ul className="flex flex-col text-orange-200">
-                <Link
-                  to={"/restaurant/Dashboard"}
-                  className="px-4 py-3 hover:bg-orange-100 hover:text-orange-500 cursor-pointer transition"
-                >
-                  Change Your Role
-                </Link>
+                
 
                 <Link
                   to={"/home/cart"}

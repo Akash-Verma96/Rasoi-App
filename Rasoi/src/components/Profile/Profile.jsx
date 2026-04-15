@@ -1,6 +1,27 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios"
+import { BASE_URL } from "../../utils/constant";
 
 const Profile = () => {
+
+  const [profile , setProfile] = useState({});
+
+
+  const fetchProfile = async () => {
+    try {
+      const res = await axios.get( BASE_URL +  "/profile/view", {withCredentials:true});
+
+      setProfile(res.data);
+    } catch (error) {
+      console.log(error?.response?.data);
+    }
+  }
+
+  useEffect(()=>{
+    fetchProfile();
+  },[])
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-md bg-zinc-900 rounded-2xl shadow-xl p-6 text-white">
@@ -12,8 +33,8 @@ const Profile = () => {
             alt="User"
             className="w-24 h-24 rounded-full object-cover border-4 border-orange-500"
           />
-          <h2 className="text-xl font-semibold mt-4">Akash Verma</h2>
-          <p className="text-sm text-zinc-400">akash@example.com</p>
+          <h2 className="text-xl font-semibold mt-4">{`${profile.firstName} ${profile.lastName}`}</h2>
+          <p className="text-sm text-zinc-400">{profile.emailId}</p>
         </div>
 
         {/* Divider */}

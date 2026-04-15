@@ -75,13 +75,13 @@ function Dashboard() {
         </h2>
 
         <div className="flex flex-wrap gap-3">
-          <Link
+          {/* <Link
             to={"/restaurant/addMeal"}
             className="flex items-center gap-2 bg-orange-500 text-white px-3 py-2 rounded-lg hover:bg-orange-600"
           >
             <Plus size={18} />
             AddMeal
-          </Link>
+          </Link> */}
 
           <button
             onClick={handleLogout}
