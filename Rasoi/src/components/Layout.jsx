@@ -6,12 +6,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import AccessDenied from "../pages/restaurant/AccessDenied";
 
 
 function Layout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((store) => store.user);
+  const [error,setError] = useState(false);
+
 
   const fecthUser = async () => {
     if (userData) return;
@@ -24,7 +27,10 @@ function Layout() {
       dispatch(addUser(res.data));
     } catch (error) {
       if (error.response?.status === 401) {
-        return navigate("/Onboarding");
+        return navigate("/");
+      }
+      if(error.response?.status === 403){
+        setError(true);
       }
       console.log("ERROR : ", error.response);
     }
@@ -33,6 +39,8 @@ function Layout() {
   useEffect(() => {
     fecthUser();
   }, []);
+
+  if(error) return <AccessDenied />
 
   return (
     <div className=" w-full ">

@@ -6,11 +6,13 @@ import { BASE_URL } from "../../utils/constant";
 import { useDispatch } from "react-redux";
 import { addOrders, settotalMeals } from "../../utils/restaurantSlice";
 import RestaurantDashboardSkeleton from "../../components/Skeletons/RestaurantDashboardSkeleton";
-import { toast } from "react-toastify"
+import { toast } from "react-toastify";
+import AccessDenied from "./AccessDenied";
 
 function Dashboard() {
   const [restaurant, setRestaourant] = useState({});
   const [loading, setloading] = useState(true);
+  const [error, setError] = useState(false);
   const [mealsSize, setMealsSize] = useState([]);
   const [orders, setOrders] = useState([]);
 
@@ -39,6 +41,7 @@ function Dashboard() {
       dispatch(addOrders(ordersData.data));
       setOrders(ordersData.data);
     } catch (error) {
+      setError(true);
       console.log(error);
     } finally {
       setloading(false);
@@ -54,10 +57,10 @@ function Dashboard() {
       await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
 
       toast.success("Data Added Successfully !", {
-              position: "top-right",
-              autoClose: 2000,
-              theme: "dark",
-            });
+        position: "top-right",
+        autoClose: 2000,
+        theme: "dark",
+      });
       navigate("/login");
     } catch (error) {
       console.log(error);
@@ -65,6 +68,8 @@ function Dashboard() {
   };
 
   if (loading) return <RestaurantDashboardSkeleton />;
+
+  if (error) return <AccessDenied />;
 
   return (
     <div className="w-full">
@@ -123,44 +128,47 @@ function Dashboard() {
                 <th className="py-2">Order ID</th>
                 <th>Customer</th>
                 <th>Meal</th>
+                <th>Price</th>
                 <th>Status</th>
               </tr>
             </thead>
 
             <tbody>
               {orders
-              ?.slice(-5)
-              .reverse()
-              .map((order) => (
-                <tr
-                  key={order._id}
-                  className="border-b text-gray-600 hover:bg-gray-50"
-                >
-                  <td className="py-3 font-medium">#{order._id?.slice(-5)}</td>
+                ?.slice(-5)
+                .reverse()
+                .map((order) => (
+                  <tr
+                    key={order._id}
+                    className="border-b text-gray-600 hover:bg-gray-50"
+                  >
+                    <td className="py-3 font-medium">
+                      #{order._id?.slice(-5)}
+                    </td>
 
-                  <td>{order.address.address[0].name || "User"}</td>
+                    <td>{order.address.address[0].name || "User"}</td>
 
-                  <td>{order.items[0].name}</td>
+                    <td>{order.items[0].name}</td>
 
-                  <td className="text-orange-600 font-semibold">
-                    ₹{order.totalPrice}
-                  </td>
+                    <td className="text-orange-600 font-semibold">
+                      ₹{order.totalPrice}
+                    </td>
 
-                  <td>
-                    <span
-                      className={`px-3 py-1 text-sm rounded-full font-medium ${
-                        order.status === "Delivered"
-                          ? "bg-green-100 text-green-600"
-                          : order.status === "Preparing"
-                            ? "bg-yellow-100 text-yellow-600"
-                            : "bg-orange-100 text-orange-600"
-                      }`}
-                    >
-                      {order.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
+                    <td>
+                      <span
+                        className={`px-3 py-1 text-sm rounded-full font-medium ${
+                          order.status === "Delivered"
+                            ? "bg-green-100 text-green-600"
+                            : order.status === "Preparing"
+                              ? "bg-yellow-100 text-yellow-600"
+                              : "bg-orange-100 text-orange-600"
+                        }`}
+                      >
+                        {order.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

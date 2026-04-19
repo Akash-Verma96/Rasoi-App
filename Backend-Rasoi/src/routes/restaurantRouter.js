@@ -3,6 +3,7 @@ import userAuth from "../middlewares/auth.js";
 import Restaurant from "../models/restaurant.js";
 import Meal from "../models/meal.js";
 import Order from "../models/order.js";
+import allowRoles from "../middlewares/allowedRoles.js";
 
 const restaurantRouter = express.Router();
 
@@ -34,7 +35,7 @@ restaurantRouter.post("/restaurant/Profile", userAuth, async (req, res) => {
   }
 });
 
-restaurantRouter.get("/restaurant/Dashboard", userAuth, async (req, res) => {
+restaurantRouter.get("/restaurant/Dashboard", userAuth, allowRoles("restaurant"), async (req, res) => {
   try {
     const userId = req.user._id;
 

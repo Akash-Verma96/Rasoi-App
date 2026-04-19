@@ -2,7 +2,7 @@ import React from "react";
 
 function CartSkeleton() {
   return (
-    <div className="flex flex-col xl:flex-row gap-8">
+    <div className="flex flex-col xl:flex-row gap-8 my-5 mx-5">
       
       {/* Cart Items Skeleton */}
       <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 flex-1">

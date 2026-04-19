@@ -2,11 +2,12 @@ import express from 'express'
 import userAuth from '../middlewares/auth.js';
 import Meal from '../models/meal.js';
 import Cart from '../models/cart.js';
+import allowRoles from '../middlewares/allowedRoles.js';
 
 
 const profileRouter = express.Router();
 
-profileRouter.get("/profile/view",userAuth, async (req,res)=>{
+profileRouter.get("/profile/view",userAuth, allowRoles("customer"), async (req,res)=>{
     try {
         const user = req.user;
 

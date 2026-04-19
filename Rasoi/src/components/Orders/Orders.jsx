@@ -77,7 +77,9 @@ export default function Orders() {
           <p>No orders found</p>
         </div>
       ) : (
-        userOrder.map((order) => (
+        userOrder
+        .reverse()
+        .map((order) => (
           <div
             onClick={handleNavigate}
             key={order._id}

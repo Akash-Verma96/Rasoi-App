@@ -50,7 +50,7 @@ userSchema.methods.getJWT =  function(){
 
     const secretKey = process.env.JWT_SECRET
 
-    const token =  jwt.sign({_id : user._id}, secretKey, {expiresIn : "7d"});
+    const token =  jwt.sign({_id : user._id,role : user.role}, secretKey, {expiresIn : "7d"});
 
     return token;
 }
