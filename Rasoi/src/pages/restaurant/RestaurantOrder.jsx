@@ -40,7 +40,9 @@ function RestaurantOrder() {
                 </td>
               </tr>
             ) : (
-              orders.map((order) => (
+              [...orders]
+              .reverse()
+              .map((order) => (
                 <tr
                   key={order._id}
                   className="border-b text-gray-600 hover:bg-gray-50"
@@ -58,9 +60,9 @@ function RestaurantOrder() {
                   <td>
                     <span
                       className={`px-3 py-1 text-sm rounded-full font-medium ${
-                        order.status === "Delivered"
+                        order.status === "delivered"
                           ? "bg-green-100 text-green-600"
-                          : order.status === "Preparing"
+                          : order.status === "preparing"
                             ? "bg-yellow-100 text-yellow-600"
                             : "bg-orange-100 text-orange-600"
                       }`}

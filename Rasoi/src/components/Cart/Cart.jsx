@@ -151,7 +151,7 @@ function Cart() {
                       <span className="text-xs sm:text-sm bg-orange-100 text-orange-600 px-3 py-1 rounded-full">
                         {`Quantity : ${meal.quantity}`}
                       </span>
-                      <div className="flex items-center justify-between mt-2 sm:mt-0 gap-3 px-1 py-1 bg-orange-50 rounded-full ">
+                      {/* <div className="flex items-center justify-between mt-2 sm:mt-0 gap-3 px-1 py-1 bg-orange-50 rounded-full ">
                         <button
                           onClick={handleDecrement}
                           className="w-6 h-6 flex items-center  justify-center
@@ -167,7 +167,7 @@ function Cart() {
                         >
                           +
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
