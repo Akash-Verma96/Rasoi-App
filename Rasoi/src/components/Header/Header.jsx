@@ -37,7 +37,8 @@ function Header() {
   };
 
   return (
-    <header className="w-full px-4 flex items-center justify-between gap-4">
+    <>
+    <header className="w-full px-4 flex items-center bg-black shadow-orange-600/20 shadow-xl justify-between gap-4">
       {/* Logo */}
       <div className="flex items-center">
         <img
@@ -86,7 +87,7 @@ function Header() {
           drop-shadow-[0_0_8px_rgba(255,140,0,0.8)] 
           cursor-pointer hover:scale-110 transition"
         />
-        <div className=" z-3">
+        <div className=" z-10">
           {/* Hamburger Icon */}
           <button
             onClick={() => setOpen(!open)}
@@ -97,7 +98,7 @@ function Header() {
 
           {/* Dropdown Menu */}
           {open && (
-            <div className="absolute right-0 mt-3 w-48 backdrop-blur-lg rounded-xl shadow-lg border overflow-hidden">
+            <div className="absolute z-10 right-0 mt-3 w-48 bg-black backdrop-blur-lg rounded-xl shadow-lg border overflow-hidden">
               <ul className="flex flex-col text-orange-200">
                 
 
@@ -121,7 +122,7 @@ function Header() {
                 >
                   Profile
                 </Link>
-                <button onClick={handleLogout}  className="bg-amber-600 text-white px-5 py-2.5 rounded-lg font-semibold transition-all duration-300 hover:bg-amber-900 hover:scale-105 active:scale-95">
+                <button onClick={handleLogout}  className="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-lg font-semibold transition-all duration-300 hover:scale-105 active:scale-95">
                   Logout
                 </button>
               </ul>
@@ -130,6 +131,8 @@ function Header() {
         </div>
       </div>
     </header>
+    <div className="h-px w-full bg-linear-to-r from-transparent via-orange-500/70 to-transparent"></div>
+    </>
   );
 }
 
