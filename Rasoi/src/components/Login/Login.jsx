@@ -8,8 +8,8 @@ import { addUser } from "../../utils/userSlice";
 import { toast } from "react-toastify";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("");
-  const [password, setPassword] = useState("");
+  const [emailId, setEmailId] = useState("akash@gmail.com");
+  const [password, setPassword] = useState("Akash@123");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [role, setRole] = useState("");
