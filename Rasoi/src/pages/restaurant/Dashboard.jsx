@@ -77,10 +77,17 @@ function Dashboard() {
         },
         { withCredentials: true },
       );
+
+      toast.success("Order Accepted Please Refresh page!", {
+              position: "top-right",
+              autoClose: 2000,
+              theme: "dark",
+            });
     } catch (error) {
       console.log(error?.response?.message);
     }
   };
+
 
   if (loading) return <RestaurantDashboardSkeleton />;
 
@@ -94,7 +101,14 @@ function Dashboard() {
           {restaurant.restaurantName}
         </h2>
 
+
         <div className="flex flex-wrap gap-3">
+          <Link
+            to={"/restaurant/addMeal"}
+            className="flex items-center justify-center gap-2 bg-linear-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-full shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 w-full sm:w-auto"
+          >
+            AddFood
+          </Link>
           <button
             onClick={handleLogout}
             className="flex items-center justify-center gap-2 bg-linear-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-full shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 w-full sm:w-auto"

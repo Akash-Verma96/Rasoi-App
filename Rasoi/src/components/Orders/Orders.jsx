@@ -103,11 +103,13 @@ export default function Orders() {
                     {order.date}
                   </p>
                   <p
-                    className={`text-xs sm:text-sm font-medium ${
-                      order.status === "Delivered"
-                        ? "text-green-600"
-                        : "text-orange-500"
-                    }`}
+                    className={`px-3 py-1 text-center text-xs rounded-full font-medium ${
+                          order.status === "delivered"
+                            ? "bg-green-100 text-green-600"
+                            : order.status === "preparing"
+                              ? "bg-yellow-100 text-yellow-600"
+                              : "bg-orange-100 text-orange-600"
+                        }`}
                   >
                     {order.status}
                   </p>

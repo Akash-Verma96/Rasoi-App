@@ -6,6 +6,73 @@ import { BASE_URL } from "../../utils/constant";
 import PopularMealsSkeleton from "../Skeletons/PopularMealsSkeleton";
 import {toast} from "react-toastify"
 
+const restaurants = [
+  {
+    _id: "1",
+    name: "Spice Garden",
+    location: "Sector 18, Noida",
+    tagline: "Serving happiness with every bite ✨",
+    rating: 4.3,
+    deliveryTime: "30-40 min",
+  },
+  {
+    _id: "2",
+    name: "Urban Tadka",
+    location: "Connaught Place, Delhi",
+    tagline: "Where taste meets comfort 🍲",
+    rating: 4.1,
+    deliveryTime: "25-35 min",
+  },
+  {
+    _id: "3",
+    name: "Biryani Blues",
+    location: "Lajpat Nagar, Delhi",
+    tagline: "Crafted with love, served hot 🔥",
+    rating: 4.5,
+    deliveryTime: "35-45 min",
+  },
+  {
+    _id: "4",
+    name: "The Food Hub",
+    location: "Karol Bagh, Delhi",
+    tagline: "Good food. Good mood. Always 😌",
+    rating: 4.0,
+    deliveryTime: "20-30 min",
+  },
+  {
+    _id: "5",
+    name: "Desi Flavours",
+    location: "Rohini, Delhi",
+    tagline: "A place you'll keep coming back to ❤️",
+    rating: 4.2,
+    deliveryTime: "30 min",
+  },
+  {
+    _id: "6",
+    name: "Tandoori Nights",
+    location: "Janakpuri, Delhi",
+    tagline: "Smoky flavors that hit different 🔥",
+    rating: 4.4,
+    deliveryTime: "40 min",
+  },
+  {
+    _id: "7",
+    name: "Street Zaika",
+    location: "Chandni Chowk, Delhi",
+    tagline: "Authentic street taste, modern vibe 😎",
+    rating: 4.3,
+    deliveryTime: "20 min",
+  },
+  {
+    _id: "4",
+    name: "The Food Hub",
+    location: "Karol Bagh, Delhi",
+    tagline: "Good food. Good mood. Always 😌",
+    rating: 4.0,
+    deliveryTime: "20-30 min",
+  }
+];
+
 function PopularMeals() {
   const [popularMeals, setPopularMeals] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -86,6 +153,51 @@ function PopularMeals() {
           </div>
         ))}
       </div>
+
+
+      <h2 className="text-lg sm:text-xl font-semibold text-orange-400 ">
+  Popular Restaurants 🍽️
+</h2>
+
+{/* Scroll Container */}
+
+<div className="flex flex-nowrap gap-4 overflow-x-auto hide-scrollbar scroll-smooth px-4 py-3">
+  {restaurants.map((restaurant) => (
+    <div
+      key={restaurant._id}
+      className="
+      min-w-65 sm:min-w-75
+      bg-gray-950 rounded-2xl px-4 py-3
+      border border-gray-800
+      shadow-sm hover:shadow-md
+      transition duration-300 hover:-translate-y-1
+      flex items-center justify-between
+      "
+    >
+      {/* Left Content */}
+      <div>
+        <h3 className="text-sm sm:text-base font-semibold text-white">
+          {restaurant.name}
+        </h3>
+
+        <p className="text-xs text-gray-400 mt-1">
+          📍 {restaurant.location}
+        </p>
+      </div>
+
+      {/* CTA */}
+      <Link
+        to={`restaurant/${restaurant._id}`}
+        className="text-xs sm:text-sm font-medium text-orange-500 hover:text-orange-600 whitespace-nowrap"
+      >
+        View →
+      </Link>
+    </div>
+  ))}
+</div>
+
+
+      
     </section>
   );
 }

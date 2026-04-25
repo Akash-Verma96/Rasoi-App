@@ -3,6 +3,7 @@ import { Upload, XCircle } from "lucide-react";
 import axios from "axios";
 import { BASE_URL } from "../../utils/constant";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function AddMeal() {
   const [name,setName] = useState("")
@@ -12,6 +13,7 @@ function AddMeal() {
   const [image,setImage] = useState(null)
   const [isFile,setFile] = useState(false)
   const [fileName,setFileName] = useState("")
+  const [upload,setUploading] = useState(false);
 
 
   const fileInputRef = useRef();
@@ -31,7 +33,7 @@ function AddMeal() {
   const handleAddMeal = async (e) => {
     e.preventDefault();
     try {
-
+      setUploading(true);
       const formData = new FormData();
 
       formData.append("name",name);
@@ -43,24 +45,54 @@ function AddMeal() {
 
     
     const res = await axios.post(
-  BASE_URL + "restaurant/addMeal",
+  BASE_URL + "/upload",
   formData,
   {
     withCredentials: true,
   }
 );
 
-      console.log(res);
-      alert("Meal added Successfully !");
+    toast.success("Food Added Successfull !", {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "dark",
+      });
     } catch (error) {
-      console.log("Add Meal frontend me error hai !")
+      console.log(error?.response?.message);
+    } finally {
+      setUploading(false);
     }
   }
+
+  
 
 
   return (
     <div className="min-h-screen  flex justify-center items-center p-6">
       <div className="w-full max-w-3xl bg-white text-black shadow-lg rounded-2xl p-8">
+        {upload && <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-black/30 backdrop-blur-md">
+      
+  {/* Plate */}
+  <div className="relative flex items-center justify-center">
+    
+    {/* Outer spinning ring */}
+    <div className="absolute w-24 h-24 border-4 border-dashed border-orange-500 rounded-full animate-spin"></div>
+    
+    {/* Inner plate */}
+    <div className="w-16 h-16 rounded-full bg-linear-to-br from-orange-400 to-orange-600 shadow-lg flex items-center justify-center">
+      
+      {/* Food dot */}
+      <div className="w-4 h-4 bg-white rounded-full animate-pulse"></div>
+    
+    </div>
+  </div>
+
+  {/* Text */}
+  <p className="text-orange-500 text-sm font-medium tracking-wide animate-pulse">
+    Uploading your meal...
+  </p>
+
+</div>}
 
         {/* Heading */}
         <div className="flex justify-between items-start" >
@@ -151,7 +183,7 @@ function AddMeal() {
           {/* Button */}
           <button
             type="submit"
-            className="w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition font-semibold"
+            className="w-full cursor-pointer bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition font-semibold"
           >
             Add Meal
           </button>
