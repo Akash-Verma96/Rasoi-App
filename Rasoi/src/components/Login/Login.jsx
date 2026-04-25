@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../utils/userSlice";
 import { toast } from "react-toastify";
+import RasoiLoader from "../Loader/RasoiLoader";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("akash@gmail.com");
@@ -16,11 +17,13 @@ const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
     try {
+      setLoading(true);
       const res = await axios.post(
         BASE_URL + "/login",
         {
@@ -50,6 +53,8 @@ const Login = () => {
         autoClose: 3000,
         theme: "dark",
       });
+    } finally{
+      setLoading(false);
     }
   };
 
@@ -94,6 +99,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center px-4 bg-linear-to-br ">
       <div className="w-full max-w-md backdrop-blur-xl  border border-orange-200 shadow-lg shadow-orange-200 rounded-3xl p-8">
         {/* Logo Section */}
+        {loading && <RasoiLoader featuredText="Rasoi is cooking..." description="Preparing your delicious experience 🍽️" /> }
         <div className="flex flex-col items-center mb-6">
           <div className="bg-linear-to-r from-orange-500 to-red-500 p-3 rounded-2xl shadow-lg shadow-orange-400/40">
             <Flame className="text-white" size={28} />
