@@ -6,7 +6,7 @@ import { BASE_URL } from "../../utils/constant.js";
 function ChatBot() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: "Hey 👋 How can I help you?", role: "bot" },
+    { text: "Hey 👋 Your next meal is one message away 👀🍜", role: "bot" },
   ]);
   const [input, setInput] = useState("");
   const bottomRef = useRef(null);

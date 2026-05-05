@@ -4,7 +4,7 @@ import Meal from '../models/meal.js';
 import Cart from '../models/cart.js';
 import allowRoles from '../middlewares/allowedRoles.js';
 import Restaurant from '../models/restaurant.js';
-import { getGroqChatCompletion } from '../config/app.js';
+import { getGroqChatCompletion } from '../config/chat.js';
 
 
 const profileRouter = express.Router();

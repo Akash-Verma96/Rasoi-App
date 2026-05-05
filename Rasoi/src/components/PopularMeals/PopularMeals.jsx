@@ -86,9 +86,9 @@ function PopularMeals() {
       const mealData = await axios.get(BASE_URL, { withCredentials: true });
 
       setPopularMeals(mealData.data);
-      const restaurantData = await axios.get(BASE_URL + "/home", {withCredentials: true});
+      // const restaurantData = await axios.get(BASE_URL + "/home", {withCredentials: true});
 
-      setRestaurant(restaurantData.data);
+      // setRestaurant(restaurantData.data);
     } catch (err) {
       toast.error(err?.response?.data, {
         position: "top-right",
@@ -161,9 +161,9 @@ function PopularMeals() {
       </div>
 
 
-      <h2 className="text-lg sm:text-xl font-semibold text-orange-400 ">
+      {/* <h2 className="text-lg sm:text-xl font-semibold text-orange-400 ">
   Popular Restaurants 🍽️
-</h2>
+</h2> */}
 
 {/* Scroll Container */}
 
