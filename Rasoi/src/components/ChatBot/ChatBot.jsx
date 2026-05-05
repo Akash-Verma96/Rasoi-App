@@ -94,7 +94,9 @@ function ChatBot() {
                     : "bg-white text-gray-800 border border-orange-100 rounded-bl-none"
                 }`}
               >
-                {msg.text}
+                <div
+  dangerouslySetInnerHTML={{ __html: msg.text }}
+/>
               </div>
             </div>
           ))}
