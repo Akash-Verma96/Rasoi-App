@@ -7,6 +7,7 @@ import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AccessDenied from "../pages/restaurant/AccessDenied";
+import ChatBot from "./ChatBot/ChatBot";
 
 
 function Layout() {
@@ -47,6 +48,7 @@ function Layout() {
       <Outlet />
 
       <FeatureBar />
+      <ChatBot />
     </div>
   );
 }

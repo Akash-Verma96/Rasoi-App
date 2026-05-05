@@ -11,10 +11,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { BASE_URL } from "../../utils/constant";
 import axios from "axios";
 import {toast} from "react-toastify"
+import RasoiLoader  from "../Loader/RasoiLoader"
 
 function PaymentPage() {
   const [method, setMethod] = useState("upi");
   const [showSuccess, setSuccess] = useState(false);
+  const [loading,setloading] = useState(false);
 
   const orderData = useSelector((store) => store.order);
  
@@ -22,6 +24,7 @@ function PaymentPage() {
 
   const handlePlaceOrder = async () => {
     try {
+      setloading(true);
       const {restaurant} = orderData.items[0][0].meal;
       const meals = orderData.items[0];
    
@@ -62,6 +65,8 @@ function PaymentPage() {
               autoClose: 2000,
               theme: "dark",
             });
+    } finally {
+      setloading(false);
     }
   };
 
@@ -92,6 +97,10 @@ function PaymentPage() {
               </Link>
             </div>
           </div>
+        )}
+
+        {loading && (
+          <RasoiLoader featuredText="Processing secure payment..." description="Do Not Refresh This Page" />
         )}
 
         {/* Stepper */}

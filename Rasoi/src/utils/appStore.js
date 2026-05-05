@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import userSlice from './userSlice.js'
 import orderSlice from './orderSlice.js'
 import restaurantSlice from './restaurantSlice.js'
+import mealSlice from './mealSlice.js'
 
 
 export default configureStore({
@@ -9,5 +10,6 @@ export default configureStore({
         user : userSlice,
         order : orderSlice,
         restaurant : restaurantSlice,
+        meal: mealSlice,
     },
 })

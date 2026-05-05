@@ -2,10 +2,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios"
 import { BASE_URL } from "../../utils/constant";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-
   const [profile , setProfile] = useState({});
+  const navigate = useNavigate();
 
 
   const fetchProfile = async () => {
@@ -17,6 +19,28 @@ const Profile = () => {
       console.log(error?.response?.data);
     }
   }
+
+  const handleLogout = async () => {
+      try {
+        await axios.post(
+          BASE_URL + "/logout",
+          {},
+          {
+            withCredentials: true,
+          },
+        );
+  
+        toast.success("Logout Successfull", {
+          position: "top-right",
+          autoClose: 2000,
+          theme: "dark",
+        });
+  
+        return navigate("/login");
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
   useEffect(()=>{
     fetchProfile();
@@ -84,7 +108,7 @@ const Profile = () => {
           <button className="bg-orange-500 hover:bg-orange-600 transition rounded-xl py-2 font-medium">
             Edit Profile
           </button>
-          <button className="bg-red-500 hover:bg-red-600 transition rounded-xl py-2 font-medium">
+          <button onClick={handleLogout} className="bg-red-500 cursor-pointer hover:bg-red-600 transition rounded-xl py-2 font-medium">
             Logout
           </button>
         </div>

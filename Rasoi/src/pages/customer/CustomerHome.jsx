@@ -4,6 +4,7 @@ import PopularMeals from "../../components/PopularMeals/PopularMeals.jsx";
 import Category from "../../components/Category/Category.jsx";
 import Meals from "../../components/Meals/Meals.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
+import TrendingMeals from "../../components/TrendingMeals/TrendingMeals.jsx";
 
 import image2 from "../../assets/image2.jpg";
 import image3 from "../../assets/image3.jpg";
@@ -181,7 +182,9 @@ function CustomerHome() {
         </div>
       </div>
 
+      <TrendingMeals />
       <PopularMeals />
+      
       <Category />
       <Meals />
       <Footer />

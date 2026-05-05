@@ -4,18 +4,23 @@ import { Link } from "react-router-dom";
 import { BASE_URL } from "../../utils/constant";
 import HomeSkeleton from "../Skeletons/HomeSkeleton";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addMeals } from "../../utils/mealSlice";
+
 
 function Meals() {
   const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
   const fetchMeals = async () => {
     try {
       const res = await axios.get(BASE_URL, { withCredentials: true });
 
       setMeals(res.data);
+      dispatch(addMeals(res.data));
     } catch (error) {
-      toast.error(err?.response?.data, {
+      toast.error(error?.response?.data, {
         position: "top-right",
         autoClose: 2000,
         theme: "dark",
