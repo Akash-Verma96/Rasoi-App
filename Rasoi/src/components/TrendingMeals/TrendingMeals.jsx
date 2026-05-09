@@ -92,12 +92,12 @@ const TrendingMeals = () => {
                     ₹{meal.price}
                   </span>
 
-                  <Link
+                  {/* <Link
                     to={`/meal/${meal._id}`}
                     className="text-xs text-white bg-orange-500 px-2 py-1 rounded-md hover:bg-orange-600 transition"
                   >
                     View
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
 

@@ -71,7 +71,7 @@ const Profile = () => {
             <p className="text-sm text-zinc-400">Orders</p>
           </div>
           <div>
-            <h3 className="text-lg font-bold text-orange-500">₹3,240</h3>
+            <h3 className="text-lg font-bold text-orange-500">₹440</h3>
             <p className="text-sm text-zinc-400">Spent</p>
           </div>
           <div>
@@ -105,9 +105,9 @@ const Profile = () => {
 
         {/* Action Buttons */}
         <div className="flex flex-col gap-3">
-          <button className="bg-orange-500 hover:bg-orange-600 transition rounded-xl py-2 font-medium">
+          {/* <button className="bg-orange-500 hover:bg-orange-600 transition rounded-xl py-2 font-medium">
             Edit Profile
-          </button>
+          </button> */}
           <button onClick={handleLogout} className="bg-red-500 cursor-pointer hover:bg-red-600 transition rounded-xl py-2 font-medium">
             Logout
           </button>
