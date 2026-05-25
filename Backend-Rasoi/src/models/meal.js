@@ -30,6 +30,8 @@ const mealSchema = new  mongoose.Schema({
     }
 })
 
+mealSchema.index({ name: "text" });
+
 const Meal = mongoose.model("Meal",mealSchema)
 
 export default Meal

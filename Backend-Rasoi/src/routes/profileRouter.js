@@ -83,4 +83,48 @@ profileRouter.post('/chat', userAuth, async (req,res)=>{
     }
 })
 
+profileRouter.get("/restaurantDetail/:restaurantId", userAuth, async(req,res)=>{
+    try {
+        const {restaurantId} = req.params;
+
+
+        const restaurantDetail = await Restaurant.findOne({ _id: restaurantId });
+
+        res.send(restaurantDetail);
+    } catch (error) {
+        res.status(500).send("Error : ", error.message);
+    }
+})
+profileRouter.get("/restaurantDetail/meals/:restaurantId", userAuth, async(req,res)=>{
+    try {
+        const {restaurantId} = req.params;
+
+
+        const mealDetail = await Meal.find({ restaurant: restaurantId });
+
+        res.send(mealDetail);
+    } catch (error) {
+        res.status(500).send("Error : ", error.message);
+    }
+})
+
+profileRouter.get("/search", async (req, res) => {
+  try {
+    const q = req.query.q;
+
+    const meals = await Meal.find({
+      name: {
+        $regex: q,
+        $options: "i",
+      },
+    }).limit(10);
+
+    res.json(meals);
+  } catch (error) {
+    res.status(500).json({
+      message: "Search failed",
+    });
+  }
+});
+
 export default profileRouter

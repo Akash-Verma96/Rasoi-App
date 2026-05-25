@@ -25,6 +25,7 @@ import RestaurantLayout from "./pages/restaurant/RestaurantLayout.jsx";
 import RestaurantOrder from "./pages/restaurant/RestaurantOrder.jsx";
 import RestaurantSetting from "./pages/restaurant/RestaurantSetting.jsx";
 import AdminPanel from "./pages/admin/AdminPanel.jsx";
+import RestaurantDetail from "./components/RestaurantDetail.jsx/RestaurantDetail.jsx";
 
 
 
@@ -50,6 +51,8 @@ function App() {
             <Route path="address" element={<Address />} />
             <Route path="payment" element={<PaymentPage />} />
             <Route path="mealDetail/:mealId" element={<MealDetail />} />
+            <Route path="restaurant/:restaurantId" element={<RestaurantDetail />} />
+            
           </Route>
 
 
