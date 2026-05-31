@@ -8,17 +8,23 @@ const paymentRouter = express.Router();
 
 paymentRouter.post("/payment/create", userAuth, async (req, res) => {
   try {
+    const { name, phone } = req.body;
+
+
+    
     const order = await razorpayInstance.orders.create({
-      amount: 50000,
+      amount: 5000,
       currency: "INR",
       receipt: "receipt#1",
       partial_payment: false,
       notes: {
-        Name: "Akash Kumar",
-        Meal: "value2",
+        Name: name,
+        Phone: phone,
       },
     });
 
+    
+    // Save OrderID to database 
     const payment = new Payment({
       userId: req.user._id,
       orderId: order.id,
@@ -29,9 +35,12 @@ paymentRouter.post("/payment/create", userAuth, async (req, res) => {
       notes: order.notes,
     });
 
+
+    // save payment here
+
     const savedPayment = await payment.save();
 
-    res.json({ payment: savedPayment, Key_Id: process.env.RAZORPAY_KEY });
+    res.json({ ...savedPayment.toJSON(), KeyId: process.env.RAZORPAY_KEY });
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -49,7 +58,7 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
       }
       console.log("Valid webhook Signature received");
 
-      // update db 
+      // update database with payment status
 
       const paymentDetail = req.body.payload.payment.entity;
 

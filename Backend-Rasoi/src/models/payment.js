@@ -31,15 +31,12 @@ const paymentSchema = new mongoose.Schema(
       required: true,
     },
     notes: {
-      firstName: {
+      Name: {
         type: String,
       },
-      lastName: {
+      Phone: {
         type: String,
-      },
-      membershipType: {
-        type: String,
-      },
+      }
     },
   },
   { timestamps: true },

@@ -14,26 +14,25 @@ export default function Address() {
     address: "",
     city: "",
     state: "",
-    pincode: ""
+    pincode: "",
   });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
- useEffect(()=>{
+  useEffect(() => {
     const hasSeenInfo = localStorage.getItem("address_warning");
 
-    if(!hasSeenInfo){
+    if (!hasSeenInfo) {
       toast.info("Do not refresh this page", {
         position: "top-right",
         autoClose: 3000,
         theme: "dark",
-      })
+      });
 
       localStorage.setItem("address_warning", "true");
     }
- },[])
-  
+  }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -48,59 +47,67 @@ export default function Address() {
       alert("⚠️ Please fill all required fields (*)");
       return;
     }
-    
+
     dispatch(setAddress(form));
-    // return navigate('/home/payment');
+    return navigate("/home/payment");
   };
 
-  const handleClick = async () => {
+  const handlePayment = async () => {
     try {
-      const res = await axios.post(BASE_URL + "/payment/create", {}, { withCredentials: true });
-     
-      const { Key_Id } = res.data;
-      const { amount,order_id, } = res.data.payment;
+      const { name, phone } = form;
 
+      const order = await axios.post(
+        BASE_URL + "/payment/create",
+        { name, phone },
+        { withCredentials: true },
+      );
+
+      console.log(order.data);
+
+      const { KeyId } = order.data;
+
+      const { amount, orderId, notes } = order.data;
 
       const options = {
-        key: Key_Id,
-        amount, 
-        currency: 'INR',
-        name: 'Rasoi',
-        description: 'Test Transaction',
-        order_id,
-        callback_url: 'http://localhost:3000/payment-success',
+        key: KeyId,
+        amount,
+        currency: "INR",
+        name: "Rasoi",
+        description: "Test Transaction",
+        order_id: orderId,
         prefill: {
-          name: 'Akash Kumar',
-          email: 'akash.kumar@example.com',
-          contact: '9999999999'
+          name: notes.Name,
+          contact: notes.Phone,
         },
+
+        handler: function (response) {
+          console.log("Payment Success:", response);
+        },
+
         theme: {
-          color: '#F37254'
+          color: "#F37254",
         },
       };
 
-
       const rzp = new Razorpay(options);
       rzp.open();
-
     } catch (error) {
       console.error(error);
     }
-  }
-
-
+  };
 
   return (
     <div className="min-h-screen bg-linear-to-br from-orange-50 to-white flex items-center justify-center p-4">
       <div className="w-full max-w-4xl bg-white shadow-xl rounded-2xl p-5 sm:p-6 md:p-10">
-
         {/* Stepper */}
         <div className="flex items-center justify-between mb-8 md:mb-10">
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="bg-orange-500 text-white p-2 sm:p-3 rounded-full">
               <MapPin size={18} />
             </div>
-            <p className="font-semibold text-orange-500 text-sm sm:text-base">Address</p>
+            <p className="font-semibold text-orange-500 text-sm sm:text-base">
+              Address
+            </p>
           </div>
 
           <div className="flex-1 h-0.5 bg-orange-200 mx-2 sm:mx-4 relative">
@@ -111,7 +118,9 @@ export default function Address() {
             <div className="bg-gray-200 p-2 sm:p-3 rounded-full">
               <CreditCard size={18} />
             </div>
-            <p className="font-semibold text-gray-400 text-sm sm:text-base">Payment</p>
+            <p className="font-semibold text-gray-400 text-sm sm:text-base">
+              Payment
+            </p>
           </div>
         </div>
 
@@ -121,8 +130,10 @@ export default function Address() {
         </h2>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5"
+        >
           {/* Name */}
           <div className="col-span-1 md:col-span-2">
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -219,19 +230,20 @@ export default function Address() {
           </div>
 
           {/* Button */}
-          <button
+          {/* <button
+            onClick={handleSubmit}
             type="submit"
             className="col-span-1 md:col-span-2 mt-4 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl text-base sm:text-lg font-semibold transition duration-200 shadow-md hover:shadow-lg"
           >
             Continue to Payment →
-          </button>
-          {/* <button
-            onClick={()=>handleClick()}
-            className="col-span-1 cursor-pointer md:col-span-2 mt-4 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl text-base sm:text-lg font-semibold transition duration-200 shadow-md hover:shadow-lg"
-          >
-            Pay Now →
           </button> */}
         </form>
+        <button
+          onClick={handlePayment}
+          className="col-span-1 px-4 cursor-pointer md:col-span-2 mt-4 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl text-base sm:text-lg font-semibold transition duration-200 shadow-md hover:shadow-lg"
+        >
+          Pay Now →
+        </button>
       </div>
     </div>
   );
