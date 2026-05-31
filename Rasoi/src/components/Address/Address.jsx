@@ -142,7 +142,7 @@ export default function Address() {
           {/* Phone */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Phone Number *
+              Phone Number **
             </label>
             <input
               type="text"
@@ -227,7 +227,7 @@ export default function Address() {
           </button> */}
           <button
             onClick={()=>handleClick()}
-            className="col-span-1 md:col-span-2 mt-4 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl text-base sm:text-lg font-semibold transition duration-200 shadow-md hover:shadow-lg"
+            className="col-span-1 cursor-pointer md:col-span-2 mt-4 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl text-base sm:text-lg font-semibold transition duration-200 shadow-md hover:shadow-lg"
           >
             Pay Now →
           </button>
