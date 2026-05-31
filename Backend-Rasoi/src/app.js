@@ -9,6 +9,7 @@ import addMealRouter from "./routes/addMealRouter.js";
 import restaurantRouter from "./routes/restaurantRouter.js";
 import orderRouter from "./routes/orderRouter.js";
 import adminRouter from "./routes/adminRouter.js";
+import paymentRouter from "./routes/paymentRouter.js";
 
 
 dotenv.config(); // used to take variable value from .env file middleware
@@ -37,6 +38,7 @@ app.use("/", addMealRouter);
 app.use("/", restaurantRouter);
 app.use("/", orderRouter);
 app.use("/", adminRouter);
+app.use("/",paymentRouter);
 
 const port = process.env.PORT || 3000;
 

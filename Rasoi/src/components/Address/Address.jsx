@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAddress } from "../../utils/orderSlice";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { BASE_URL } from "../../utils/constant";
 
 export default function Address() {
   const [form, setForm] = useState({
@@ -48,8 +50,45 @@ export default function Address() {
     }
     
     dispatch(setAddress(form));
-    return navigate('/home/payment');
+    // return navigate('/home/payment');
   };
+
+  const handleClick = async () => {
+    try {
+      const res = await axios.post(BASE_URL + "/payment/create", {}, { withCredentials: true });
+     
+      const { Key_Id } = res.data;
+      const { amount,order_id, } = res.data.payment;
+
+
+      const options = {
+        key: Key_Id,
+        amount, 
+        currency: 'INR',
+        name: 'Rasoi',
+        description: 'Test Transaction',
+        order_id,
+        callback_url: 'http://localhost:3000/payment-success',
+        prefill: {
+          name: 'Akash Kumar',
+          email: 'akash.kumar@example.com',
+          contact: '9999999999'
+        },
+        theme: {
+          color: '#F37254'
+        },
+      };
+
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
 
   return (
     <div className="min-h-screen bg-linear-to-br from-orange-50 to-white flex items-center justify-center p-4">
@@ -180,11 +219,17 @@ export default function Address() {
           </div>
 
           {/* Button */}
-          <button
+          {/* <button
             type="submit"
             className="col-span-1 md:col-span-2 mt-4 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl text-base sm:text-lg font-semibold transition duration-200 shadow-md hover:shadow-lg"
           >
             Continue to Payment →
+          </button> */}
+          <button
+            onClick={()=>handleClick()}
+            className="col-span-1 md:col-span-2 mt-4 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl text-base sm:text-lg font-semibold transition duration-200 shadow-md hover:shadow-lg"
+          >
+            Pay Now →
           </button>
         </form>
       </div>
