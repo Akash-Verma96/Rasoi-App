@@ -219,18 +219,18 @@ export default function Address() {
           </div>
 
           {/* Button */}
-          {/* <button
+          <button
             type="submit"
             className="col-span-1 md:col-span-2 mt-4 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl text-base sm:text-lg font-semibold transition duration-200 shadow-md hover:shadow-lg"
           >
             Continue to Payment →
-          </button> */}
-          <button
+          </button>
+          {/* <button
             onClick={()=>handleClick()}
             className="col-span-1 cursor-pointer md:col-span-2 mt-4 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl text-base sm:text-lg font-semibold transition duration-200 shadow-md hover:shadow-lg"
           >
             Pay Now →
-          </button>
+          </button> */}
         </form>
       </div>
     </div>
