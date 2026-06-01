@@ -26,7 +26,7 @@ app.use(
   })
 );
 
-
+app.use("/", paymentRouter);
 
 app.use(express.json()); // To read json data sent by client middleware
 app.use(cookie_Parser()); // --> used to get token from client side generaly client use res.cookie.token to get token
@@ -38,7 +38,6 @@ app.use("/", addMealRouter);
 app.use("/", restaurantRouter);
 app.use("/", orderRouter);
 app.use("/", adminRouter);
-app.use("/",paymentRouter);
 
 const port = process.env.PORT || 3000;
 
