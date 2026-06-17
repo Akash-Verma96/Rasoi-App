@@ -62,7 +62,6 @@ export default function Address() {
         { withCredentials: true },
       );
 
-      console.log(order.data);
 
       const { KeyId } = order.data;
 
@@ -78,10 +77,6 @@ export default function Address() {
         prefill: {
           name: notes.Name,
           contact: notes.Phone,
-        },
-
-        handler: function (response) {
-          console.log("Payment Success:", response);
         },
 
         theme: {
@@ -153,7 +148,7 @@ export default function Address() {
           {/* Phone */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Phone Number *
+              Phone Number **
             </label>
             <input
               type="text"
