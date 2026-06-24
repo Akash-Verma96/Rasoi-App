@@ -62,9 +62,17 @@ export default function Address() {
         { withCredentials: true },
       );
 
-      const { KeyId } = order.data;
+      console.log("Order Response:", order.data);
 
-      const { amount, orderId, notes } = order.data;
+      const { KeyId, amount, orderId, notes } = order.data;
+
+      if (!orderId) {
+        console.error("Order creation failed!");
+        return;
+      }
+
+      console.log("Order Created Successfully");
+      console.log("Order ID:", orderId);
 
       const options = {
         key: KeyId,
@@ -73,13 +81,17 @@ export default function Address() {
         name: "Rasoi",
         description: "Test Transaction",
         order_id: orderId,
+
         prefill: {
           name: notes.Name,
           contact: notes.Phone,
+        },
 
-          handler: function (response) {
-            console.log(response);
-          },
+        handler: function (response) {
+          console.log("Payment Success");
+          console.log("Payment ID:", response.razorpay_payment_id);
+          console.log("Order ID:", response.razorpay_order_id);
+          console.log("Signature:", response.razorpay_signature);
         },
 
         theme: {
@@ -90,7 +102,7 @@ export default function Address() {
       const rzp = new Razorpay(options);
       rzp.open();
     } catch (error) {
-      console.error(error);
+      console.error("Payment Error:", error);
     }
   };
 
