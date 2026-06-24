@@ -62,7 +62,6 @@ export default function Address() {
         { withCredentials: true },
       );
 
-
       const { KeyId } = order.data;
 
       const { amount, orderId, notes } = order.data;
@@ -77,6 +76,10 @@ export default function Address() {
         prefill: {
           name: notes.Name,
           contact: notes.Phone,
+
+          handler: function (response) {
+            console.log(response);
+          },
         },
 
         theme: {
